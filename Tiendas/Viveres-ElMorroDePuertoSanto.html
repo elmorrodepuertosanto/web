@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abastecimientos de El Morro de Puerto Santo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2a7a3e;
+            --primary-dark: #1e5c2e;
+            --primary-light: #4caf50;
+            --secondary-color: #ff9800;
+            --accent-color: #3f51b5;
+            --dark-color: #2c3e50;
+            --light-color: #f5f7fa;
+            --gray-color: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: var(--white);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            color: var(--dark-color);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .main-header {
+            background: linear-gradient(rgba(42, 122, 62, 0.9), rgba(30, 92, 46, 0.95)), 
+                        url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            padding: 2rem 0 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--white);
+            color: var(--primary-color);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .back-button:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Informational Section */
+        .info-section {
+            padding: 3rem 0 2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .info-section p {
+            font-size: 1.1rem;
+            color: var(--gray-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Category Filter */
+        .category-section {
+            padding: 1rem 0 2rem;
+            text-align: center;
+        }
+
+        .category-title {
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-btn {
+            background-color: var(--white);
+            color: var(--dark-color);
+            border: 2px solid var(--primary-light);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-btn:hover {
+            background-color: var(--primary-light);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .category-btn.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .category-btn i {
+            font-size: 0.9rem;
+        }
+
+        /* Catalog Grid - 2 columnas fijas en móvil */
+        .catalog-section {
+            padding: 0 0 4rem;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Catalog Card */
+        .catalog-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .catalog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-image {
+            height: 180px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .catalog-card:hover .card-image img {
+            transform: scale(1.08);
+        }
+
+        .card-content {
+            padding: 1.2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-category {
+            display: inline-block;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            padding: 0.3rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(42, 122, 62, 0.2);
+            margin-top: 0.5rem;
+        }
+
+        /* Detail View */
+        .detail-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--white);
+            z-index: 2000;
+            overflow-y: auto;
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .detail-view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .detail-close-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 2001;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .detail-close-btn:hover {
+            background-color: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        .detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Detail Header */
+        .detail-header {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .detail-header-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .detail-header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+            z-index: 2;
+        }
+
+        .detail-header-content {
+            position: relative;
+            z-index: 3;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .detail-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        /* Detail Description */
+        .detail-description {
+            padding: 2.5rem 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .detail-description p {
+            font-size: 1.1rem;
+            color: var(--gray-color);
+            line-height: 1.8;
+        }
+
+        /* Info Cards */
+        .detail-info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 0 20px 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .info-card {
+            background-color: var(--light-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .info-card-icon {
+            width: 45px;
+            height: 45px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: var(--white);
+            font-size: 1.1rem;
+        }
+
+        .info-card-title {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+            margin-bottom: 0;
+        }
+
+        .info-card-content {
+            padding-left: 0.5rem;
+        }
+
+        .info-card-content p {
+            font-size: 1.05rem;
+            color: var(--dark-color);
+        }
+
+        /* Gallery Section - 2 columnas fijas en móvil */
+        .detail-gallery {
+            padding: 0 20px 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .gallery-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 180px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--white);
+            color: var(--dark-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 3001;
+            transition: var(--transition);
+        }
+
+        .lightbox-close:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            transform: scale(1.1);
+        }
+
+        .lightbox-container {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            transition: var(--transition);
+            z-index: 3002;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .lightbox-nav:hover {
+            background-color: var(--white);
+            color: var(--primary-dark);
+        }
+
+        .lightbox-nav.prev {
+            left: 15px;
+        }
+
+        .lightbox-nav.next {
+            right: 15px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+        }
+
+        /* RESPONSIVE STYLES */
+        @media (max-width: 768px) {
+            .main-header {
+                padding: 3.5rem 0 2rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .detail-header h1 {
+                font-size: 2rem;
+            }
+            .detail-header {
+                height: 280px;
+            }
+            .catalog-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 1rem;
+            }
+            .card-image {
+                height: 150px;
+            }
+            .card-content {
+                padding: 1rem;
+            }
+            .card-title {
+                font-size: 1.1rem;
+            }
+            .card-category {
+                font-size: 0.75rem;
+                padding: 0.25rem 0.7rem;
+            }
+            .category-buttons {
+                gap: 0.5rem;
+            }
+            .category-btn {
+                padding: 0.5rem 0.9rem;
+                font-size: 0.85rem;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 0.8rem;
+            }
+            .gallery-item {
+                height: 150px;
+            }
+            .detail-info-cards {
+                grid-template-columns: 1fr;
+            }
+            .lightbox-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+            .lightbox-nav.prev {
+                left: 10px;
+            }
+            .lightbox-nav.next {
+                right: 10px;
+            }
+            .detail-close-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+                top: 15px;
+                right: 15px;
+            }
+            .back-button {
+                top: 15px;
+                left: 15px;
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .catalog-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 0.8rem;
+            }
+            .card-image {
+                height: 130px;
+            }
+            .card-title {
+                font-size: 1rem;
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 0.7rem;
+            }
+            .gallery-item {
+                height: 130px;
+            }
+            .detail-header h1 {
+                font-size: 1.7rem;
+            }
+            .detail-header {
+                height: 220px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 992px) {
+            .catalog-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 993px) {
+            .catalog-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            .gallery-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        @media (min-width: 1200px) {
+            .catalog-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        @media (max-width: 400px) {
+            .category-buttons {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 1rem;
+                -webkit-overflow-scrolling: touch;
+            }
+            .category-btn {
+                flex-shrink: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Header -->
+    <header class="main-header">
+        <a href="../index.html#viveres"><button class="back-button" id="backButton">
+            <i class="fas fa-arrow-left"></i>
+            Volver al Principal
+        </button></a>
+        <div class="header-content">
+            <h1>Abastecimientos de El Morro de Puerto Santo</h1>
+            <p style="color: #d3d8e0;">Descubre todos los comercios esenciales que hacen vibrar nuestra comunidad costera. Encuentra lo que necesitas, donde lo necesitas.</p>
+        </div>
+    </header>
+
+    <!-- Informational Section -->
+    <section class="info-section container">
+        <p>En esta página encontrarás un directorio completo de todas las tiendas de abastecimiento y servicios esenciales disponibles en El Morro de Puerto Santo. Desde víveres hasta ferreterías, todo lo que necesitas para tu día a día.</p>
+        <p>Explora las categorías o navega por todas las tiendas para encontrar exactamente lo que buscas.</p>
+    </section>
+
+    <!-- Category Filter -->
+    <section class="category-section container">
+        <h3 class="category-title">Filtrar por Categoría</h3>
+        <div class="category-buttons" id="categoryButtons">
+            <!-- Category buttons will be dynamically generated here -->
+        </div>
+    </section>
+
+    <!-- Catalog Grid -->
+    <section class="catalog-section container">
+        <div class="catalog-grid" id="catalogGrid">
+            <!-- Cards will be dynamically generated here -->
+        </div>
+    </section>
+
+    <!-- Detail View -->
+    <div class="detail-view" id="detailView">
+        <div class="detail-close-btn" id="detailCloseBtn">
+            <i class="fas fa-times"></i>
+        </div>
+        
+        <div class="detail-container">
+            <!-- Detail Header -->
+            <div class="detail-header" id="detailHeader">
+                <img class="detail-header-image" id="detailHeaderImage" src="" alt="">
+                <div class="detail-header-overlay"></div>
+                <div class="detail-header-content">
+                    <h1 id="detailTitle">Nombre de la Tienda</h1>
+                </div>
+            </div>
+            
+            <!-- Detail Description -->
+            <div class="detail-description">
+                <p id="detailDescription">Descripción de la tienda aparecerá aquí.</p>
+            </div>
+            
+            <!-- Info Cards -->
+            <div class="detail-info-cards">
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3 class="info-card-title">Horario de Atención</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <p id="detailHours">Horario aparecerá aquí</p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3 class="info-card-title">Ubicación</h3>
+                    </div>
+                    <div class="info-card-content">
+                        <p id="detailLocation">Ubicación aparecerá aquí</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Gallery Section -->
+            <div class="detail-gallery">
+                <h3 class="gallery-title">Galería del Local</h3>
+                <div class="gallery-grid" id="detailGallery">
+                    <!-- Gallery items will be dynamically generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-close" id="lightboxClose">
+            <i class="fas fa-times"></i>
+        </div>
+        
+        <div class="lightbox-container">
+            <div class="lightbox-nav prev" id="lightboxPrev">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            
+            <img class="lightbox-image" id="lightboxImage" src="" alt="">
+            
+            <div class="lightbox-nav next" id="lightboxNext">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">Abastecimientos El Morro</div>
+            <p>Directorio completo de comercios y servicios en El Morro de Puerto Santo, Estado Sucre, Venezuela</p>
+            <p>© <span id="currentYear">2026</span> - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+});
+
+
+        // Sample data for supply stores (originales 1-16 + 5 nuevas + 1 carpintería = 22)
+        const supplyStores = [
+            // originales 1-16
+            {
+                id: 1,
+                name: "Distribuidora Juliany",
+                category: "Víveres",
+                description: "Distribuidora Julianny se consolida como el centro de abastecimiento integral más completo de la zona, ofreciendo una amplia variedad de productos que abarcan desde carnicería y charcutería hasta víveres en general y artículos de cuidado personal y del hogar. El establecimiento destaca por su organización y frescura, brindando a la comunidad y a los visitantes una solución rápida y eficiente para sus compras diarias en un ambiente impecable.",
+                image: "assets/IMG/Tiendas/Destribuidora-1.jpg",
+                hours: "Lunes a Sábado: 8:00 AM - 1:00 PM y 4:00 PM - 7:30 PM | Domingos: 8:00 AM - 1:00 PM",
+                location: "Calle Principal",
+                gallery: [
+                    "assets/IMG/Tiendas/Destribuidora-2.jpg",
+                    "assets/IMG/Tiendas/Destribuidora-3.jpg",
+                ]
+            },
+            {
+                id: 2,
+                name: "Panificadora Moncalven",
+                category: "Panadería",
+                description: "Es un establecimiento donde se pueden encontrar productos de panadería junto con una variedad de víveres para el consumo diario. Ubicada en la comunidad de El Morro de Puerto Santo, ofrece a sus clientes la posibilidad de adquirir pan fresco y artículos básicos del hogar en un mismo lugar. Gracias a su oferta de productos y su amplio horario, se convierte en una opción práctica para las compras cotidianas dentro de la localidad.",
+                image: "assets/IMG/Tiendas/moncalven-1.jpg",
+                hours: "8:00 a.m. a 10:00 p.m., y los domingos son intermitentes",
+                location: "Calle Principal",
+                gallery: [
+                    "assets/IMG/Tiendas/moncalven-2.jpg",
+                    "assets/IMG/Tiendas/moncalven-3.jpg",
+                    
+                ]
+            },
+            {
+                id: 3,
+                name: "Carnicería San Miguel",
+                category: "Carnicería",
+                description: "En Carnicería San Miguel, conocida popularmente como La Carnicería de Niquito, ofrecemos una solución integral para tu mesa con cortes de carne frescos, pollos y una variada charcutería que destaca en nuestra vitrina. Más que una carnicería, somos tu aliado diario donde puedes encontrar desde huevos y lácteos hasta víveres esenciales como harina, pasta y artículos de higiene personal. Con la calidez de nuestra atención y la calidad de nuestros productos, garantizamos todo lo que tu hogar necesita en un solo lugar.",
+                image: "assets/IMG/Tiendas/carniceriaNiquito-1.jpg",
+                hours: "Todos los dias: 7:00 AM - 5:00 PM",
+                location: "Calle La Bomba, Sectores Unidos.",
+                gallery: [
+                    "assets/IMG/Tiendas/carniceriaNiquito-2.jpg",
+                    "assets/IMG/Tiendas/carniceriaNiquito-3.jpg",
+                ]
+            },
+            {
+                id: 4,
+                name: "Dios Sabe lo que Hace",
+                category: "Verduras y hortalizas",
+                description: "En esta casa de verduras y hortalizas ofrecen lo fresco del dia de forma humilde, cuentan con viveres esenciales que todos necesitan, con la atencion casera que los identifica.",
+                image: "assets/IMG/Tiendas/diossabe-3 (4).jpg",
+                hours: "Lunes a Domingo: 6:00 AM - 9:00 PM",
+                location: "Calle principal de Los OLivitos",
+                gallery: [
+                    " assets/IMG/Tiendas/diossabe-2 (3).jpg",
+                    "assets/IMG/Tiendas/diossabe-3 (2).jpg",
+                     ]
+            },
+            {
+                id: 5,
+                name: "FarmaSalud Virgen Del Valle",
+                category: "Farmacia",
+                description: "Farmasalud Virgen del Valle se consolida como el centro de bienestar integral predilecto en la zona, ofreciendo una amplia gama de soluciones que combinan servicios farmacéuticos y víveres esenciales. El establecimiento destaca por su infraestructura moderna y organizada, donde los clientes pueden encontrar desde medicamentos especializados y productos de cuidado personal hasta una sección de refrigerados y productos de primera necesidad. Con un fuerte compromiso con la salud comunitaria, Farmasalud Virgen del Valle brinda atención profesional en un ambiente impecable y climatizado, asegurando que cada visitante encuentre todo lo requerido para el cuidado del hogar en un solo lugar.",
+                image: "assets/IMG/Tiendas/farmaciaVirgen-1.jpg",
+                hours: "Lunes a Sábado: 8:00 AM - 8:00 PM ",
+                location: "Calle Principal.",
+                gallery: [
+                    "assets/IMG/Tiendas/farmaciaVirgen-2.jpg",
+                    "assets/IMG/Tiendas/farmaciaVirgen-3.jpg",
+                ]
+            },
+            {
+                id: 6,
+                name: "Inversiones Raf",
+                category: "Ferretería",
+                description: "En la Ferretería de Fernando somos tu aliado estratégico para cualquier proyecto, desde pequeñas reparaciones hasta construcciones de gran escala. Contamos con un inventario robusto que incluye herramientas eléctricas y manuales de alta calidad, materiales de construcción como láminas de techo, cemento y pegamento, así como artículos de plomería, electricidad y grifería. Además, ofrecemos soluciones para el mantenimiento del hogar como tanques de agua, bombas, mallas y cercados. Con el respaldo de marcas reconocidas y nuestra atención personalizada, en la Ferretería de Fernando encuentras la herramienta justa y el consejo experto para que tu trabajo quede bien hecho.",
+                image: "assets/IMG/Tiendas/ferreteriaFernando-1.jpg",
+                hours: "Todos los dias: 8:00 AM - 5:00 PM",
+                location: "Calle La Ceiba, Union De Las 3C.",
+                gallery: [
+                    "assets/IMG/Tiendas/ferreteriaFernando-2.jpg",
+                    "assets/IMG/Tiendas/ferreteriaFernando-3.jpg",
+                ]
+            },
+            {
+                id: 7,
+                name: "Repuestos Y Accesorios William",
+                category: "Repuestos",
+                description: "Repuestos y Accesorios Willian se posiciona como la solución integral para el parque automotor de dos ruedas en la zona, ofreciendo un amplio inventario que abarca desde componentes mecánicos críticos y lubricantes de alto rendimiento hasta accesorios estéticos y de seguridad para motociclistas. El establecimiento destaca por su operatividad ininterrumpida, brindando atención de lunes a lunes en horario corrido, lo que garantiza que tanto residentes como viajeros encuentren siempre el respaldo técnico necesario. Con una exhibición organizada que incluye repuestos originales para diversas marcas y artículos especializados para el mantenimiento preventivo",
+                image: "assets/IMG/Tiendas/repuestosWilian-1.jpg",
+                hours: "Todos los dias: Horario corrido.",
+                location: "Calle Principal.",
+                gallery: [
+                    "assets/IMG/Tiendas/repuestosWilian-2.jpg",
+                    "assets/IMG/Tiendas/repuestosWilian-3.jpg",
+                ]
+            },
+            {
+                id: 8,
+                name: "Barbería Los Evangelicos",
+                category: "Barbería y peluquería",
+                description: "Barbería Los Evangélicos se consolida como un espacio tradicional y confiable para el cuidado personal masculino en la zona. El establecimiento destaca por ofrecer servicios de barbería clásica en un ambiente de respeto y profesionalismo, atendido por personal experimentado dedicado a la estética del caballero moderno. Con un enfoque en la atención esmerada y la puntualidad.",
+                image: "assets/IMG/Tiendas/barberiaLosEvangelicos-1.jpg",
+                hours: "Lunes a Sábado: 8:00 AM - 6:00 PM ",
+                location: "Calle Principal",
+                gallery: [
+                    "assets/IMG/Tiendas/barberiaLosEvangelicos-2.jpg",
+                    "assets/IMG/Tiendas/barberiaLosEvangelicos-3.jpg",
+                ]
+            },
+            {
+                id: 9,
+                name: "Inversiones NR",
+                category: "Víveres",
+                description: "Inversiones NR, C.A. se establece como una solución práctica y confiable para el abastecimiento diario en la zona. El establecimiento ofrece una variada selección de víveres, productos de primera necesidad, artículos de limpieza y snacks, organizados para facilitar una compra rápida y eficiente. Con una atención enfocada en la utilidad y el servicio a la comunidad.",
+                image: "assets/IMG/Tiendas/inverciones-1.jpg",
+                hours: "Lunes a Sabado: 7:00 AM - 6:00 PM",
+                location: "Calle Principal.",
+                gallery: [
+                    "assets/IMG/Tiendas/inverciones-2.jpg",
+                    "assets/IMG/Tiendas/inverciones-3.jpg",
+                ]
+            },
+            {
+                id: 11,
+                name: "Panadería Sugei ",
+                category: "Panadería",
+                description: "Es un establecimiento donde los habitantes y visitantes de El Morro de Puerto Santo pueden encontrar productos de panadería junto con una variedad de víveres para el consumo diario. Gracias a su amplia jornada y a la combinación de panadería y productos básicos, se convierte en un lugar práctico para realizar compras rápidas o disfrutar de pan fresco en cualquier momento del día.",
+                image: " assets/IMG/Tiendas/sugei-3.jpg",
+                hours: "Lunes a Sabado: 8:00 a.m. a 10:30 p.m. y los domingos: 1:00 p.m. a 10:30 p.m.",
+                location: "Frente de la Plaza Bolivar.",
+                gallery: [
+                    "assets/IMG/Tiendas/sugei-2.jpg",
+                    "assets/IMG/Tiendas/sugei-1.jpg",
+                     ]
+            },
+            {
+                id: 12,
+                name: "Charcutería Servitodo",
+                category: "Carnicería",
+                description: "Es un establecimiento especializado en la venta de productos de charcutería, donde los habitantes y visitantes de El Morro de Puerto Santo pueden encontrar una variedad de alimentos ideales para el consumo diario. Este local ofrece opciones prácticas para complementar las compras del hogar, destacándose como un punto conveniente para adquirir embutidos y otros productos similares dentro de la comunidad.",
+                image: "assets/IMG/Tiendas/charcuteriaservitodo-1 .jpg",
+                hours: "Lunes a Domingo de 8:00 a.m. a 8:00 p.m.",
+                location: "Antes de de la Plaza Bolivar, Sector 19 de Abril",
+                gallery: [
+                    "assets/IMG/Tiendas/charcuteriaservitodo-2.jpg",
+                    "assets/IMG/Tiendas/charcuteriaservitodo-3.jpg",
+                     ]
+            },
+            {
+                id: 13,
+                name: "La Cosecha",
+                category: "Víveres",
+                description: "Es un pequeño comercio local que ofrece una variedad de víveres y chucherías para el día a día de los habitantes y visitantes de El Morro de Puerto Santo. Este establecimiento brinda la comodidad de conseguir productos básicos, snacks y golosinas en un mismo lugar. Su ambiente cercano y práctico la convierte en una opción accesible para quienes necesitan hacer compras rápidas o simplemente disfrutar de algún antojo durante el día.",
+                image: "assets/IMG/Tiendas/lacosecha-1.jpg",
+                hours: "Lunes a Domingo de 7:00 a.m. a 9:00 p.m",
+                location: "Entrada a playa los cocos.",
+                gallery: [
+                    "assets/IMG/Tiendas/lacosecha-2.jpg",
+                    "assets/IMG/Tiendas/lacosecha-3.jpg",
+                   
+                ]
+            },
+           
+            {
+                id: 15,
+                name: "Ferretería Las Margaritas",
+                category: "Ferretería",
+                description: "Es un establecimiento especializado en la venta de materiales para la construccion en general, ubicado un local de estructura industrial y funcional. Se distingue por su fachada color turquesa donde se detalla su amplia variedad de productos.",
+                image: "assets/IMG/Tiendas/lasmargaritas-1.jpg",
+                hours: "Lunes a Viernes: 8:00 AM - 4:00 PM y Sabados de: 8:00AM a 12:30PM",
+                location: "Calle mariscal, Sectores Unidos.",
+                gallery: [
+                    "assets/IMG/Tiendas/lasmargaritas-2.jpg",
+                    "assets/IMG/Tiendas/lasmargaritas-3 (2).jpg",
+                    
+                ]
+            },
+            {
+                id: 16,
+                name: "Servitodo El Morro",
+                category: "Ferretería",
+                description: "Servitodo El Morro 2024 C.A. se proyecta como el aliado indispensable para el mantenimiento y desarrollo en la zona, ofreciendo un catálogo integral que combina ferretería, lubricantes y electrodomésticos. El establecimiento destaca por su infraestructura moderna y una organización por departamentos que permite a los clientes encontrar desde pinturas y herramientas de alta gama hasta soluciones para el sector náutico y automotriz.",
+                image: "assets/IMG/Tiendas/serviTodo-1.jpg",
+                hours: "Lunes a Sabado: 7:30 AM - 5:30 PM",
+                location: "Calle Principal.",
+                gallery: [
+                    "assets/IMG/Tiendas/serviTodo-2.jpg",
+                    "assets/IMG/Tiendas/serviTodo-3.jpg",
+                ]
+            },
+            // NUEVAS 5 TIENDAS (Cyber, Licorería, Papelería, Spa, Heladería)
+            {
+                id: 17,
+                name: "Oasis",
+                category: "Cyber",
+                description: "Mantente siempre conectado y resuelve tus pendientes en Cyber Oasis. Tu espacio ideal en El Morro para navegación de alta velocidad, impresiones nítidas, digitalización de documentos y soporte técnico garantizado. Diseñado tanto para estudiantes que necesitan cumplir con sus tareas como para profesionales que buscan un lugar cómodo y eficiente para trabajar, aquí encuentras la tecnología y la tranquilidad que necesitas.",
+                image: "assets/IMG/Tiendas/Cheito-1.jpg",
+                hours: "Lunes a Domingo: 8:00 AM - 12:00 PM y de 2:00 AM - 7:00 PM, Domingos: 8:00 AM - 12:00 PM",
+                location: "Sector 19 de Abril, frente a la plazita.",
+                gallery: [
+                    "assets/IMG/Tiendas/Cheito-2.jpg",
+                    "assets/IMG/Tiendas/Cheito-3.jpg",
+                ]
+            },
+            {
+                id: 18,
+                name: "Santa Ana",
+                category: "Licorería",
+                description: "Es un establecimiento dedicado a la venta de bebidas alcohólicas, ofreciendo a los habitantes y visitantes de El Morro de Puerto Santo una opción accesible para adquirir distintos licores. Este local forma parte de la oferta comercial de la comunidad, brindando un espacio práctico para quienes buscan este tipo de productos dentro de la localidad.",
+                image: "assets/IMG/Tiendas/santaana-2.jpg",
+                hours: "Todos los días: 8:00 AM - 9:00 PM",
+                location: "Calle Principal",
+                gallery: [
+                    "assets/IMG/Tiendas/santaana-1.jpg",
+                    "assets/IMG/Tiendas/santaana-3.jpg",
+                ]
+            },
+            {
+                id: 19,
+                name: "Tia Mora",
+                category: "Papelería",
+                description: "Es un comercio de productos generales que ofrece a los habitantes de El Morro de Puerto Santo una variedad de artículos útiles para el día a día. Este establecimiento brinda una opción práctica para realizar compras cotidianas dentro de la comunidad, destacándose como un punto accesible para encontrar distintos productos en un mismo lugar.",
+                image: "assets/IMG/Tiendas/tiamora-3.jpg",
+                hours: "Lunes a Sábado de 8:00 a.m. a 6:00 p.m.",
+                location: "Calle la Ceiba, frente a la plazoleta.",
+                gallery: [
+                    "assets/IMG/Tiendas/tiamora-1 (1).jpg",
+                    "assets/IMG/Tiendas/tiamora-2.jpg",
+                ]
+            },
+            {
+                id: 20,
+                name: "Spa Mel's ",
+                category: "Spa",
+                description: "Ubicado en el sector Los Cocos, Spa Mel's es un centro de estética integral diseñado para ofrecer una experiencia de renovación absoluta. Este espacio se especializa en tratamientos avanzados que combinan tecnología y cuidado manual, tales como limpieza facial profunda, dermapen, radiofrecuencia y vacuoterapia, ideales para revitalizar la piel y el cuerpo. Además, ofrecen servicios de diseño de mirada con cejas y pestañas, y muy pronto contarán con el servicio de pediluvio para un cuidado completo de los pies. Para garantizar una atención personalizada y un ambiente de máxima exclusividad, el spa atiende de lunes a sábado bajo previa cita, asegurando que cada cliente reciba el tiempo y la dedicación que su bienestar merece.",
+                image: "assets/IMG/Tiendas/mel-1.jpg",
+                hours: "Lunes a Sabado previa cita: 9:00 AM - 7:00 PM",
+                location: "Calle principal, Los Cocos",
+                gallery: [
+                    "assets/IMG/Tiendas/mel-2.jpg",
+                    "assets/IMG/Tiendas/mel-3.jpg",
+                ]
+            },
+             {
+                id: 20,
+                name: "Olisol",
+                category: "Heladería",
+                description: "En Heladería Olisol te esperamos para endulzar tus días con las más cremosas barquillas, tinitas y conitos de helado llenos de tus sabores favoritos. El plan perfecto para refrescarte después de un día de playa o compartir un antojo delicioso en familia. Regálate un momento de pura felicidad",
+                image: "assets/IMG/Tiendas/heladeriaOlisol-1.jpg",
+                hours: "Lunes a Sabado previa cita: 5:00 PM - 8:30 PM,",
+                location: "Via nacional, entrada a Sectores Unidos",
+                gallery: [
+                    "assets/IMG/Tiendas/heladeriaOlisol-2.jpg",
+                    "assets/IMG/Tiendas/heladeriaOlisol-3.jpg",
+                ]
+            },
+            
+            {
+                id: 21,
+                name: "D.F Sweet's",
+                category: "Heladería",
+                description: "En Heladería Olisol te esperamos para endulzar tus días con las más cremosas barquillas, tinitas y conitos de helado llenos de tus sabores favoritos. El plan perfecto para refrescarte después de un día de playa o compartir un antojo delicioso en familia. Regálate un momento de pura felicidad",
+                image: "assets/IMG/Tiendas/DF.helados-1.jpeg",
+                hours: "Martes a Domingo: 6:00 PM - 10:30 PM",
+                location: "Calle Principal, Frente a Disco Bar",
+                gallery: [
+                    "assets/IMG/Tiendas/DF.helados-2.jpeg",
+                    "assets/IMG/Tiendas/DF.helados-3.jpeg",
+                ]
+            },
+            // NUEVA TIENDA DE CARPINTERÍA
+            {
+                id: 21,
+                name: "Industrias del Mueble Hebreos 12:14 ",
+                category: "Carpintería",
+                description: "Es un taller de carpintería dedicado a la fabricación y trabajos en madera, ofreciendo soluciones en carpintería general para los habitantes de El Morro de Puerto Santo. Este establecimiento brinda un servicio útil para quienes requieren muebles, reparaciones o trabajos personalizados, destacándose como una opción confiable dentro de la comunidad.",
+                image: "assets/IMG/Tiendas/muebles_1.jpg",
+                hours: "Lunes a Sabado: 8:00 a.m. a 12:00 p.m. y de 1:00 p.m. a 5:00 p.m.",
+                location: "Via nacional, Sector Salia II",
+                gallery: [
+                    "assets/IMG/Tiendas/muebles_2.jpg",
+                    "assets/IMG/Tiendas/muebles_3.jpg",
+                   
+                ]
+            },
+              {
+                id: 22,
+                name: "Akasa",
+                category: "Víveres",
+                description: "Es un comercio de tipo general que ofrece una amplia variedad de productos para cubrir distintas necesidades del día a día en El Morro de Puerto Santo. En este establecimiento se pueden encontrar víveres, refrigerios, productos de charcutería, papelería, ropa, accesorios, vegetales, bisutería, entre otros artículos. Lo que lo convierte en una opción práctica y completa para realizar compras en un solo lugar dentro de la comunidad.",
+                image: "assets/IMG/Tiendas/akasa_1.jpg",
+                hours: "Lunes a Viernes de 7:30 a.m. a 9:30 p.m. y Sabado a Domingo de 9:00 a.m. a 9:30 p.m.",
+                location: "Entrada al sector Los Cocos",
+                gallery: [
+                    "assets/IMG/Tiendas/akasa_2.jpg",
+                    "assets/IMG/Tiendas/akasa_3.jpg",
+                ]
+            },
+              {
+                id: 23,
+                name: "El Pintao",
+                category: "Víveres",
+                description: "Pintao Es un comercio local donde se pueden encontrar víveres, productos de panadería y artículos de limpieza, ofreciendo a los habitantes de El Morro de Puerto Santo una opción práctica para realizar sus compras diarias. Gracias a la variedad de productos que ofrece, este bodegón se convierte en un punto conveniente dentro de la comunidad para adquirir distintos artículos esenciales en un solo lugar.",
+                image: "assets/IMG/Tiendas/elpintao-1.jpg",
+                hours: "Lunes a Sábado de 7:00 a.m. a 8:00 p.m., Domingos de 7:00 a.m. a 1:00 p.m.",
+                location: "Calle la Ceiba, frente a la plazoleta.",
+                gallery: [
+                    "assets/IMG/Tiendas/elpintao-2.jpg",
+                    "assets/IMG/Tiendas/elpintao-3.jpg",
+                ]
+            },
+             {
+                id: 24,
+                name: "Antiguo Cyber Full Conexión ",
+                category: "Papelería",
+                description: "Es un establecimiento que ofrece una variedad de productos de uso cotidiano, entre ellos artículos de papelería, bisutería, víveres y otros productos generales. Ubicado en la comunidad de El Morro de Puerto Santo, brinda una opción práctica para quienes necesitan realizar compras rápidas o conseguir distintos artículos en un mismo lugar. Permitiendo a los clientes visitarlo tanto en la mañana como en horas de la tarde.",
+                image: "assets/IMG/Tiendas/antiguocyber-1.jpg",
+                hours: "Todos los dias de 7:30 a.m. a 1:30 p.m. y de 3:00 p.m. a 7:30 p.m.",
+                location: "19 de Abril.",
+                gallery: [
+                    "assets/IMG/Tiendas/antiguocyber-2.jpg",
+                    "assets/IMG/Tiendas/antiguocyber-3.jpg",
+                ]
+            },
+            {
+                id: 25,
+                name: "Full Motor",
+                category: "Repuestos",
+                description: "Es un establecimiento dedicado a la venta de repuestos y lubricantes para motos, ofreciendo a los conductores de la comunidad de El Morro de Puerto Santo una opción confiable para el mantenimiento y cuidado de sus vehículos. Este local brinda productos esenciales para el buen funcionamiento de las motocicletas, convirtiéndose en un punto útil para quienes utilizan este medio de transporte en la localidad.",
+                image: "assets/IMG/Tiendas/fullmotor-1.jpg",
+                hours: "Lunes a Sábado de 8:00 a.m. a 6:00 p.m.",
+                location: "Calle Principal.",
+                gallery: [
+                    "assets/IMG/Tiendas/fullmotor-2.jpg",
+                    "assets/IMG/Tiendas/fullmotor-3.jpg",
+                ]
+            },
+            {
+                id: 26,
+                name: "J.M Repuestos",
+                category: "Repuestos",
+                description: "Especialistas en el sector automotriz de dos ruedas, J.M. Repuestos cuenta con un amplio stock de piezas, accesorios y lubricantes de alta gama para motocicletas. Es un aliado indispensable para los viajeros que se desplazan en moto, brindando soluciones rápidas y productos confiables para asegurar que su recorrido sea seguro y sin contratiempos técnicos.",
+                image: "assets/IMG/Tiendas/jmrepuestos-1.jpg",
+                hours: "Lunes a Sabado: 8:00AM a 5:00PM",
+                location: "Calle Principal.",
+                gallery: [
+                    "assets/IMG/Tiendas/jmrepuestos-2.jpg",
+                    "assets/IMG/Tiendas/jmrepuestos-3.jpg",
+                ]
+            },
+             {
+                id: 27,
+                name: "Distribuidora Marvel",
+                category: "Ferretería",
+                description: "Ubicada estratégicamente en la plazoleta, esta ferretería es el principal recurso para los visitantes y residentes que requieren insumos diversos. Su extenso inventario cubre desde repuestos específicos para mantenimiento hasta materiales de construcción, incluyendo pinturas y aceites de primera calidad, garantizando cualquier tipo de solución con comodidad.",
+                image: "assets/IMG/Tiendas/marvel-1.jpg",
+                hours: "Lunes a Sabado: 7:30 AM - 5:30 PM",
+                location: "En la plazoleta, 19 de Abril.",
+                gallery: [
+                    "assets/IMG/Tiendas/marvel-2.jpg",
+                    "assets/IMG/Tiendas/marvel-3.jpg",
+                ]
+            },
+             {
+                id: 28,
+                name: "Comercial Central",
+                category: "Ferretería",
+                description: "Este establecimiento ofrece una propuesta comercial única al combinar lo mejor de dos mundos: un surtido eficiente de víveres esenciales y una sección de ferretería sumamente robusta. Comercial Central se distingue precisamente por su amplia oferta de herramientas y suministros de ferretería, convirtiéndose en el lugar ideal para quienes buscan desde artículos de consumo diario hasta equipos específicos para reparaciones. Su inventario diversificado garantiza que el cliente pueda resolver múltiples necesidades en una sola parada.",
+                image: "assets/IMG/Tiendas/central-1.jpg",
+                hours: "Lunes a Sabado: 7:00 AM - 12:00 PM y de 2:00 PM a 5:00 PM y Domingos: 7:00 AM - 12:00 PM",
+                location: "Calle Principal.",
+                gallery: [
+                    "assets/IMG/Tiendas/central-2.jpg",
+                    "assets/IMG/Tiendas/central-3.jpg",
+                ]
+            },
+             {
+                id: 29,
+                name: "Cleodardo",
+                category: "Licorería",
+                description: "Cleodardo Es un comercio local donde los habitantes y visitantes de El Morro de Puerto Santo pueden encontrar una variedad de productos en un mismo lugar. Ofrece víveres para el hogar, licores y también artículos de pesca, lo que lo convierte en una opción práctica tanto para las compras diarias como para quienes se dedican a la actividad pesquera en la zona. Este bodegón brinda un servicio accesible y conveniente para la comunidad.",
+                image: "assets/IMG/Tiendas/cleodardo-1.jpg",
+                hours: "Lunes a Domingo: 7:00 a.m. a 9:00 p.m.",
+                location: "Calle principal, El Dique",
+                gallery: [
+                    "assets/IMG/Tiendas/cleodardo-2.jpg",
+                    "assets/IMG/Tiendas/cleodardo-3.jpg",
+                ]
+            },
+            {
+                id: 30,
+                name: "Inversiones Torres Deuel (Antonio)",
+                category: "Víveres",
+                description: "Es un establecimiento dedicado a la venta de víveres, donde los habitantes de El Morro de Puerto Santo pueden encontrar productos básicos para el hogar de manera práctica y cercana. Gracias a su horario constante y su oferta de productos esenciales, este local se ha convertido en un punto útil para realizar compras rápidas dentro de la comunidad. ",
+                image: "assets/IMG/Tiendas/torres-1.jpg",
+                hours: "Lunes a Sábado: 7:00 AM - 7:00PM y Domingos: 7:00 AM - 1:00 PM",
+                location: "Calle Principal, El Dique",
+                gallery: [
+                    "assets/IMG/Tiendas/torre-2.jpg",
+                    "assets/IMG/Tiendas/torre-3.jpg",
+                ]
+            },
+            {
+                id: 31,
+                name: "Bodega Bebito",
+                category: "Víveres",
+                description: "Es un establecimiento local dedicado a la venta de víveres, ideal para quienes necesitan adquirir productos básicos de forma rápida y cercana dentro de la comunidad de El Morro de Puerto Santo. esta bodega brinda a los vecinos y visitantes la posibilidad de encontrar artículos esenciales para el hogar en un ambiente sencillo y accesible. Su presencia forma parte del comercio cotidiano que facilita las compras diarias en la localidad",
+                image: "assets/IMG/Tiendas/bebito-1.jpg",
+                hours: "Lunes a Domingo: 6:00 a 7:00PM",
+                location: "El Dique",
+                gallery: [
+                    "assets/IMG/Tiendas/bebito2.jpg",
+                    "assets/IMG/Tiendas/bebito-3.jpg",
+                ]
+            },
+            {
+                id: 32,
+                name: "Mis 3 Hijos",
+                category: "Verduras y hortalizas",
+                description: "Es un establecimiento local donde se pueden encontrar verduras, hortalizas y víveres, ofreciendo productos frescos y básicos para el hogar. Esta bodega se presenta como una opción práctica para quienes desean realizar sus compras durante la mañana y parte de la tarde en El Morro de Puerto Santo, facilitando el acceso a alimentos esenciales dentro de la comunidad.",
+                image: "assets/IMG/Tiendas/mis3Hijos_1.jpg",
+                hours: "Lunes a Domingo: 7:00 AM - 3:00 PM",
+                location: "Via nacional, frente al sector Francisco de Miranda.",
+                gallery: [
+                    "assets/IMG/Tiendas/mis3Hijos_2.jpg",
+                    "assets/IMG/Tiendas/mis3Hijos_3.jpg",
+                     ]
+            },
+            {
+                id: 33,
+                name: "Verduras El Guardia ",
+                category: "Verduras y hortalizas",
+                description: "Es un establecimiento que ofrece una variedad de productos frescos y de uso cotidiano, incluyendo verduras, frutas y condimentos, además de artículos de limpieza y alimentos para animales. Este local se convierte en una opción práctica para quienes buscan abastecerse de productos esenciales en un solo lugar dentro de la comunidad de El Morro de Puerto Santo.",
+                image: "assets/IMG/Tiendas/elGuardia_1.jpg",
+                hours: "Lunes a Domingo: 8:00 AM - 4:00 PM",
+                location: "Via nacional, frente al sector Francisco de Miranda.",
+                gallery: [
+                    "assets/IMG/Tiendas/elGuardia_2.jpg",
+                    "assets/IMG/Tiendas/elGuardia_3.jpg",
+                     ]
+            },
+            {
+                id: 34,
+                name: "Fresh Cool",
+                category: "Víveres",
+                description: "Esta tienda de víveres se especializa en ofrecer una amplia gama de productos de primera necesidad, garantizando frescura y variedad en cada estante. Es el lugar ideal para que el turista encuentre desde ingredientes básicos para sus comidas hasta esos artículos esenciales de uso diario, todo bajo una atención rápida que permite aprovechar al máximo el tiempo de su viaje.",
+                image: "assets/IMG/Tiendas/freshcool-1.jpg",
+                hours: "Lunes a Sabado: 7:30 AM - 12:00 PM y de 1:00PM a 8:00PM / Domingos: 7:30AM a 4:00PM",
+                location: "Calle Principal.",
+                gallery: [
+                    "assets/IMG/Tiendas/freshcool-2.jpg",
+                    "assets/IMG/Tiendas/freshcool-3.jpg",
+                ]
+            },
+            {
+                id: 35,
+                name: "Mi Angel",
+                category: "Cyber",
+                description: "En Cyber Mi Ángel hacemos que tus trámites y conexiones sean más fáciles que nunca. Te ofrecemos un servicio rápido y confiable de internet para tus investigaciones, impresiones, copias y gestiones digitales del día a día. Nos caracterizamos por brindar una atención amable, cercana y eficiente para que resuelvas todo en un solo lugar. ¡Tu aliado tecnológico de confianza en la comunidad",
+                image: "assets/IMG/Tiendas/patricia-1.jpg",
+                hours: "Lunes a Sábado: 8:00 AM - 8:00 PM, Domingos: 9:00 AM - 2:00 PM",
+                location: "Calle Principal, local 5",
+                gallery: [
+                    "assets/IMG/Tiendas/patricia-2.jpg",
+                    "assets/IMG/Tiendas/patricia-3.jpg",
+                ]
+            },
+             {
+                id: 34,
+                name: "Mis hijos",
+                category: "Carnicería",
+                description: "Referente local en productos carnicos, Mis Hijos destaca por ofrecer cortes frescos y de ata calidad seleccionados meticulosamente. Es la parada obligatoria para aquellos visitantes que prefieren preparar sus propios platos o disfrutar de una parrillada, asegurando siempre un sabor autentico y la mejor textura en sus preparaciones.",
+                image: "assets/IMG/Tiendas/mishijos-1.jpg",
+                hours: "Todos los dias: 7:00 AM - 4:00 PM",
+                location: "Calle Principal.",
+                gallery: [
+                    "assets/IMG/Tiendas/mishijos-2.jpg",
+                    "assets/IMG/Tiendas/mishijos-3.jpg",
+                ]
+            },
+             {
+                id: 35,
+                name: "Arcoiris",
+                category: "Panadería",
+                description: "En Arcoíris, transformamos tus sentimientos en detalles comestibles y soluciones integrales de repostería creativa. Somos especialistas en diseñar arreglos personalizados que garantizan que cada regalo destaque por su impecable presentación y calidad superior. Ya sea un evento especial o un antojo irresistible, estamos aquí para sorprenderte con sabores inolvidables hechos 100% con amor. ",
+                image: "assets/IMG/Tiendas/confiteriaArcoiris-1.jpg",
+                hours: "Lunes a Sábado 10:30AM - 5:30 PM y los domingos feriados.",
+                location: "Calle Mariscal, sectores unidos.",
+                gallery: [
+                    "assets/IMG/Tiendas/confiteriaArcoiris-2.jpg",
+                    " assets/IMG/Tiendas/confiteriaArcoiris-3.jpg",
+                    
+                ]
+            },
+             {
+                id: 36,
+                name: "El Marcanos del Pan",
+                category: "Panadería",
+                description: "Para empezar el día con la mejor energía, El Marcanos del Pan es una panadería que ofrece una deliciosa variedad de productos frescos, perfectos para un desayuno completo o un tentempié en cualquier momento. Sumérjase en los sabores locales y disfrute de un bocado que le encantará durante su viaje. ",
+                image: "assets/IMG/Tiendas/elmarcanodelpan-1.jpg",
+                hours: "Todos los dis de 6:00AM a 12:00PM y de 4:00 a 9:00PM. Los Domingos de 4:00PM a 9:00PM.",
+                location: "Salina II, Punto Rojo.",
+                gallery: [
+                    "assets/IMG/Tiendas/elmarcanodelpan-2.jpg",
+                    "assets/IMG/Tiendas/elmarcanodelpan-3.jpg",
+                    
+                ]
+            },
+             {
+                id: 37,
+                name: "Inversiones Lugo (Bodega de Geltrudis) ",
+                category: "Víveres",
+                description: "Es un comercio local dedicado a la venta de víveres, donde los habitantes de El Morro de Puerto Santo pueden encontrar productos básicos para el hogar de manera rápida y cercana. este establecimiento ofrece una opción práctica para realizar compras diarias dentro de la comunidad, siendo un punto accesible para quienes buscan abastecerse de artículos esenciales.",
+                image: "assets/IMG/Tiendas/geltrudis-1.jpg",
+                hours: "Lunes a Sábado: 8:00 AM - 7:00 PM y Domingos: 8:00 AM - 1:00 PM",
+                location: "Calle Principal",
+                gallery: [
+                    "assets/IMG/Tiendas/geltrudis-3.jpg",
+                    "assets/IMG/Tiendas/geltrudis-2.jpg",
+                ]
+            },
+             {
+                id: 38,
+                name: "D.L. Mi Turquita",
+                category: "Víveres",
+                description: "Es una bodeguita local sencilla que se dedica principalmente a la venta de viveres basicos y productos de consumo diario. Atendida de forma cercana a traves de su mostrador de madera, ofrece lo necesario para el dia a dia, como arroz, harina, pastas, y otros articulos escenciales de despensa. Es un pequeño comercio vecinal donde la funcionalidad y la atencion rapida resuelve las compras basicas del hogar.",
+                image: "assets/IMG/Tiendas/miturquita-1.jpg",
+                hours: "Todos los dias: 8:00 AM - 9:00 PM",
+                location: "Calle La Ceiba",
+                gallery: [
+                    "assets/IMG/Tiendas/miturquita-2.jpg",
+                    "assets/IMG/Tiendas/miturquita-3.jpg",
+                ]
+            },
+            {
+                id: 39,
+                name: "La Bodega de Yako",
+                category: "Víveres",
+                description: "Ideal para abastecerse durante su estancia, La Bodega de Yako es el punto de conveniencia por excelencia donde encontrará desde víveres frescos y hortalizas de calidad hasta una selección de medicamentos y antojos de media tarde. Este establecimiento garantiza que los viajeros tengan siempre a la mano lo esencial sin interrumpir su itinerario de exploración.",
+                image: "assets/IMG/Tiendas/yako-1.jpg",
+                hours: "Todos los dias: 7:00 AM - 10:00 PM",
+                location: "Calle Principal",
+                gallery: [
+                    "assets/IMG/Tiendas/yako-2.jpg",
+                    "assets/IMG/Tiendas/yako-3.jpg",
+                ]
+            },
+             {
+                id: 39,
+                name: "Fruteria y Verdureria La Flaca",
+                category: "Verduras y hortalizas",
+                description: "Cerrando el circuito de opciones de la calle principal, este negocio proporciona un acceso rápido y cómodo a un abanico de verduras, hortalizas y frutas diversas. Su ubicación facilita la compra de productos básicos para cualquier necesidad, garantizando una alimentación sana y variada durante su visita.",
+                image: "assets/IMG/Tiendas/laflaca-1.jpg",
+                hours: "Lunes a Domingo: 8:00 AM - 6:00 PM",
+                location: "Calle principal.",
+                gallery: [
+                    "assets/IMG/Tiendas/laflaca-2.jpg",
+                    "assets/IMG/Tiendas/laflaca-3.jpg",
+                     ]
+            },
+             {
+                id: 40,
+                name: "Fruteria Los Jordan",
+                category: "Verduras y hortalizas",
+                description: "Ubicado de manera central en la calle principal, este negocio complementa la oferta de productos frescos. Destaca por su constante reposición de hortalizas y frutas de temporada, facilitando la adquisición de ingredientes sanos y de calidad para cualquier necesidad del turista.",
+                image: "assets/IMG/Tiendas/jordans-1.jpg",
+                hours: "Lunes a Domingo: 8:00 AM - 6:00 PM",
+                location: "Calle principal.",
+                gallery: [
+                    "assets/IMG/Tiendas/jordans-2.jpg",
+                    "assets/IMG/Tiendas/jordans-3.jpg",
+                     ]
+            },
+             {
+                id: 41,
+                name: "Nails Hair Lashes Spa ",
+                category: "Spa",
+                description: "Se posiciona como el centro de estética de referencia en la zona, ofreciendo una propuesta integral de belleza y cuidado personal bajo un exclusivo sistema de previa cita. El establecimiento destaca por su maestría en sistemas de uñas de vanguardia y el diseño especializado de cejas y pestañas, garantizando resultados de alta precisión. Además, su oferta se diferencia por la integración de servicios de fisioterapia eventual, proporcionando un enfoque de bienestar completo que combina la estética profesional con la salud física en un entorno diseñado para la relajación total.",
+                image: "assets/IMG/Tiendas/Spa-1.jpg",
+                hours: "Previa Cita",
+                location: "Calle Principal",
+                gallery: [
+                    "assets/IMG/Tiendas/Spa-2.jpg",
+                    "assets/IMG/Tiendas/Spa-3.jpg",
+                ]
+            },
+            {
+                id: 42,
+                name: "Belby Style",
+                category: "Barbería y peluquería",
+                description: "Resalta tu belleza y renueva tu estilo en Peluquería Belbys. Nos especializamos en cortes modernos, colorimetría y tratamientos capilares diseñados para consentirte y hacerte brillar. Con una atención de primera y estilistas profesionales que entienden lo que buscas, somos el lugar perfecto en El Morro de Puerto Santo para cuidar de tu imagen. ¡Visítanos y sal de aquí sintiéndote radiante",
+                image: "assets/IMG/Tiendas/belby-1.jpg",
+                hours: "todos los dias: 8:00 AM - 12:00 PM y 2:00 PM - 7:00 PM",
+                location: "Via Nacional, Salina I Parta alta.",
+                gallery: [
+                    "assets/IMG/Tiendas/belby-2.jpg",
+                    "assets/IMG/Tiendas/belby-3.jpg",
+                ]
+            },
+            {
+                id: 43,
+                name: "Golden Barber",
+                category: "Barbería y peluquería",
+                description: "Para quienes buscan un estilo impecable y un servicio de primera, Gold Barber es el lugar de referencia en la zona. Esta barbería combina la técnica tradicional con las últimas tendencias en cortes y cuidado masculino, ofreciendo un espacio donde la precisión y el detalle son la prioridad. Ya sea para un mantenimiento de rutina o un cambio de imagen completo, su ambiente cómodo y profesional garantiza una experiencia de cuidado personal de alta calidad.",
+                image: "assets/IMG/Tiendas/barbergolden-1.jpg",
+                hours: "Lunes a viernes: 9:00 AM - 5:00 PM",
+                location: "Calle Principal",
+                gallery: [
+                    "assets/IMG/Tiendas/barbergolden-2.jpg",
+                    "assets/IMG/Tiendas/barbergolden-3.jpg",
+                ]
+            },
+            {
+                id: 44,
+                name: "Techmobile",
+                category: "Repuestos",
+                description: "Para quienes buscan un estilo impecable y un servicio de primera, Gold Barber es el lugar de referencia en la zona. Esta barbería combina la técnica tradicional con las últimas tendencias en cortes y cuidado masculino, ofreciendo un espacio donde la precisión y el detalle son la prioridad. Ya sea para un mantenimiento de rutina o un cambio de imagen completo, su ambiente cómodo y profesional garantiza una experiencia de cuidado personal de alta calidad.",
+                image: "assets/IMG/Tiendas/mobile-1.jpg",
+                hours: "Lunes a Sabado: 9:00 AM - 5:00 PM",
+                location: "Calle Principal",
+                gallery: [
+                    "assets/IMG/Tiendas/mobile-2.jpg",
+                    "assets/IMG/Tiendas/mobile-3.jpg",
+                ]
+            },
+             {
+                id: 45,
+                name: "Variedades Rey de Reyes",
+                category: "Víveres",
+                description: "Es un comercio de tipo general que ofrece una amplia gama de productos para cubrir distintas necesidades del día a día en El Morro de Puerto Santo. En este establecimiento se pueden encontrar víveres, productos de charcutería, licores, papelería, hortalizas, chucherías, artículos de limpieza e higiene personal, todo en un mismo lugar. Se presenta como una opción cómoda y completa para realizar compras cotidianas dentro de la comunidad.",
+                image: "assets/IMG/Tiendas/ReyDeReyes_1.jpg",
+                hours: " Todos los dias: 8:00 AM - 9:00 PM",
+                location: "Via nacional, frente al sector Francisco de Miranda.",
+                gallery: [
+                    "assets/IMG/Tiendas/ReyDeReyes_2.jpg",
+                    "assets/IMG/Tiendas/ReyDeReyes_3.jpg",
+                ]
+            },
+            {
+                id: 46,
+                name: "lucila",
+                category: "Licorería",
+                description: "El éxito de tus reuniones y celebraciones comienza en Licorería Lucila. Te ofrecemos el catálogo más completo de bebidas nacionales e importadas, licores premium, cervezas bien frías y snacks para acompañar tus mejores momentos. Con la atención rápida que mereces y excelentes precios, somos tu parada obligatoria para activar el fin de semana o abastecer tus eventos en la zona.",
+                image: "assets/IMG/Tiendas/lucila1.jpeg",
+                hours: "Viernes a domingo: 3:00 PM - 12:00 PM",
+                location: "Calle Principal, a una cuadra de la Plazoleta",
+                gallery: [
+                    "assets/IMG/Tiendas/lucila2.jpeg",
+                    "assets/IMG/Tiendas/lucila3.jpeg",
+                ]
+            }
+           
+           
+        ];
+
+        // Categories data (originales + 5 nuevas + carpintería)
+        const categories = [
+            { id: "all", name: "Todas", icon: "fas fa-store" },
+            { id: "víveres", name: "Víveres", icon: "fas fa-shopping-cart" },
+            { id: "panadería", name: "Panadería", icon: "fas fa-bread-slice" },
+            { id: "carnicería", name: "Carnicería", icon: "fas fa-drumstick-bite" },
+            { id: "verduras y hortalizas", name: "Verduras y hortalizas", icon: "fas fa-carrot" },
+            { id: "farmacia", name: "Farmacia", icon: "fas fa-prescription-bottle" },
+            { id: "ferretería", name: "Ferretería", icon: "fas fa-tools" },
+            { id: "repuestos", name: "Repuestos", icon: "fas fa-cog" },
+            { id: "barbería y peluquería", name: "Barbería y peluquería", icon: "fas fa-cut" },
+            // NUEVAS CATEGORÍAS
+            { id: "cyber", name: "Cyber", icon: "fas fa-laptop" },
+            { id: "licorería", name: "Licorería", icon: "fas fa-wine-bottle" },
+            { id: "papelería", name: "Papelería", icon: "fas fa-pen" },
+            { id: "spa", name: "Spa", icon: "fas fa-spa" },
+            { id: "heladería", name: "Heladería", icon: "fas fa-ice-cream" },
+            // CATEGORÍA CARPINTERÍA
+            { id: "carpintería", name: "Carpintería", icon: "fas fa-hammer" }
+        ];
+
+        // DOM Elements
+        const backButton = document.getElementById('backButton');
+        const categoryButtons = document.getElementById('categoryButtons');
+        const catalogGrid = document.getElementById('catalogGrid');
+        const detailView = document.getElementById('detailView');
+        const detailCloseBtn = document.getElementById('detailCloseBtn');
+        const detailHeaderImage = document.getElementById('detailHeaderImage');
+        const detailTitle = document.getElementById('detailTitle');
+        const detailDescription = document.getElementById('detailDescription');
+        const detailHours = document.getElementById('detailHours');
+        const detailLocation = document.getElementById('detailLocation');
+        const detailGallery = document.getElementById('detailGallery');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+
+        // State
+        let currentCategory = 'all';
+        let currentStore = null;
+        let lightboxImages = [];
+        let currentLightboxIndex = 0;
+
+        // Initialize page
+        function initializePage() {
+            initializeCategories();
+            initializeCatalog();
+            setupEventListeners();
+        }
+
+        // Initialize category buttons
+        function initializeCategories() {
+            categoryButtons.innerHTML = '';
+            
+            categories.forEach(category => {
+                const button = document.createElement('button');
+                button.className = `category-btn ${category.id === 'all' ? 'active' : ''}`;
+                button.setAttribute('data-category', category.id);
+                
+                button.innerHTML = `
+                    <i class="${category.icon}"></i>
+                    <span>${category.name}</span>
+                `;
+                
+                button.addEventListener('click', () => filterByCategory(category.id));
+                categoryButtons.appendChild(button);
+            });
+        }
+
+        // Initialize catalog grid
+        function initializeCatalog() {
+            catalogGrid.innerHTML = '';
+            
+            // Filter stores by current category
+            let filteredStores = supplyStores;
+            if (currentCategory !== 'all') {
+                filteredStores = supplyStores.filter(store => 
+                    store.category.toLowerCase() === currentCategory
+                );
+            }
+            
+            // Display stores
+            filteredStores.forEach(store => {
+                const card = document.createElement('div');
+                card.className = 'catalog-card';
+                card.setAttribute('data-id', store.id);
+                
+                card.innerHTML = `
+                    <div class="card-image">
+                        <img src="${store.image}" alt="${store.name}" loading="lazy">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">${store.name}</h3>
+                        <span class="card-category">${store.category}</span>
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => openDetailView(store));
+                catalogGrid.appendChild(card);
+            });
+            
+            // If no stores found
+            if (filteredStores.length === 0) {
+                const noResults = document.createElement('div');
+                noResults.className = 'no-results';
+                noResults.style.gridColumn = '1 / -1';
+                noResults.style.textAlign = 'center';
+                noResults.style.padding = '3rem';
+                noResults.innerHTML = `
+                    <h3>No se encontraron tiendas en esta categoría</h3>
+                    <p>Intenta seleccionar otra categoría o agregar más tiendas.</p>
+                `;
+                catalogGrid.appendChild(noResults);
+            }
+        }
+
+        // Filter stores by category
+        function filterByCategory(categoryId) {
+            currentCategory = categoryId;
+            
+            // Update active button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-category') === categoryId) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Update catalog
+            initializeCatalog();
+        }
+
+        // Open detail view for a store
+        function openDetailView(store) {
+            currentStore = store;
+            
+            // Update detail view content
+            detailHeaderImage.src = store.image;
+            detailHeaderImage.alt = store.name;
+            detailTitle.textContent = store.name;
+            detailDescription.textContent = store.description;
+            detailHours.textContent = store.hours;
+            detailLocation.textContent = store.location;
+            
+            // Initialize gallery
+            initializeGallery(store.gallery);
+            
+            // Show detail view
+            detailView.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Initialize gallery
+        function initializeGallery(galleryImages) {
+            detailGallery.innerHTML = '';
+            
+            galleryImages.forEach((image, index) => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.setAttribute('data-index', index);
+                
+                galleryItem.innerHTML = `
+                    <img src="${image}" alt="Imagen ${index + 1} de ${currentStore.name}" loading="lazy">
+                `;
+                
+                galleryItem.addEventListener('click', () => openLightbox(galleryImages, index));
+                detailGallery.appendChild(galleryItem);
+            });
+        }
+
+        // Open lightbox
+        function openLightbox(images, index) {
+            lightboxImages = images;
+            currentLightboxIndex = index;
+            
+            lightboxImage.src = images[index];
+            lightboxImage.alt = `Imagen ${index + 1} de ${currentStore.name}`;
+            
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close lightbox
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Navigate lightbox
+        function navigateLightbox(direction) {
+            if (direction === 'next') {
+                currentLightboxIndex = (currentLightboxIndex + 1) % lightboxImages.length;
+            } else {
+                currentLightboxIndex = (currentLightboxIndex - 1 + lightboxImages.length) % lightboxImages.length;
+            }
+            
+            lightboxImage.src = lightboxImages[currentLightboxIndex];
+            lightboxImage.alt = `Imagen ${currentLightboxIndex + 1} de ${currentStore.name}`;
+            
+            // Add fade effect
+            lightboxImage.style.opacity = '0';
+            setTimeout(() => {
+                lightboxImage.style.opacity = '1';
+            }, 150);
+        }
+
+        // Close detail view
+        function closeDetailView() {
+            detailView.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Back button
+            
+            
+            // Detail close button
+            detailCloseBtn.addEventListener('click', closeDetailView);
+            
+            // Lightbox controls
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightboxPrev.addEventListener('click', () => navigateLightbox('prev'));
+            lightboxNext.addEventListener('click', () => navigateLightbox('next'));
+            
+            // Close lightbox when clicking outside image
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && detailView.classList.contains('active')) {
+                    closeDetailView();
+                }
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+                if (lightbox.classList.contains('active')) {
+                    if (e.key === 'ArrowLeft') {
+                        navigateLightbox('prev');
+                    } else if (e.key === 'ArrowRight') {
+                        navigateLightbox('next');
+                    }
+                }
+            });
+        }    
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', initializePage);
+
+    </script>
+</body>
+</html>

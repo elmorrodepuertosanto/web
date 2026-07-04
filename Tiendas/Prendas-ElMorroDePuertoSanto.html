@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Tiendas de Ropa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #9C27B0;
+            --secondary-color: #673AB7;
+            --accent-color: #E91E63;
+            --light-color: #F9F7FD;
+            --dark-color: #333333;
+            --text-color: #4A4A4A;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Estilos para el encabezado */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 i {
+            margin-right: 10px;
+        }
+
+        .back-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background-color: white;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .back-btn i {
+            margin-right: 8px;
+        }
+
+        /* Estilos para las tarjetas de tiendas */
+        .store-list {
+            padding: 40px 0;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .store-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .store-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .store-img {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 5px solid var(--accent-color);
+        }
+
+        .store-name {
+            padding: 20px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Estilos para la vista detallada de la tienda */
+        .store-detail {
+            display: none;
+            padding: 40px 0;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .detail-header h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .back-to-list {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .back-to-list:hover {
+            background-color: var(--secondary-color);
+            transform: translateX(-5px);
+        }
+
+        .back-to-list i {
+            margin-right: 8px;
+        }
+
+        /* Portada de la tienda (estática) */
+        .store-cover {
+            margin-bottom: 40px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cover-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .cover-img:hover {
+            opacity: 0.9;
+            transform: scale(1.01);
+        }
+
+        /* Información de la tienda */
+        .store-info {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .store-info h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .info-cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #F5F0FF, #EDE7F6);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-card h3 i {
+            margin-right: 10px;
+        }
+
+        /* Galería de prendas */
+        .clothes-gallery {
+            margin-top: 30px;
+        }
+
+        .clothes-gallery h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .clothes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .clothes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .clothes-item {
+            border-radius: 15px;
+            overflow: hidden;
+            height: 250px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .clothes-item:hover {
+            transform: scale(1.05);
+        }
+
+        .clothes-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Modal para ver imágenes */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .modal-img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 10px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            transform: scale(1.2);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .detail-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cover-img {
+                height: 200px;
+            }
+
+            .clothes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .clothes-item {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <div class="container header-container">
+            <h1><i class="fas fa-tshirt"></i> Moda en la Ciudad</h1>
+            <a href="../index.html#prendas" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+        </div>
+    </header>
+
+    <!-- Lista de tiendas (vista principal) -->
+    <section class="store-list" id="storeList">
+        <div class="container">
+            <h2 style="margin-bottom: 30px; color: var(--primary-color); text-align: center;">Descubre las mejores tiendas de moda</h2>
+            
+            <div class="grid-container" id="storesGrid">
+                <!-- Las tarjetas de tiendas se generarán con JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Vista detallada de la tienda (oculta inicialmente) -->
+    <section class="store-detail" id="storeDetail">
+        <div class="container">
+            <!-- Encabezado de la vista detallada -->
+            <div class="detail-header">
+                <h2 id="detailStoreName">Nombre de la Tienda</h2>
+                <button class="back-to-list" id="backToList">
+                    <i class="fas fa-arrow-left"></i> Volver al catálogo
+                </button>
+            </div>
+
+            <!-- Portada de la tienda (estática) -->
+            <div class="store-cover" id="storeCover">
+                <img src="" alt="Portada de la tienda" class="cover-img" id="coverImage">
+            </div>
+
+            <!-- Información de la tienda -->
+            <div class="store-info">
+                <h2>Acerca de nosotros</h2>
+                <p id="storeDescription">Descripción de la tienda...</p>
+                
+                <div class="info-cards" id="infoCards">
+                    <!-- Horario -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-clock"></i> Horario de atención</h3>
+                        <p id="storeSchedule">Horario de trabajo...</p>
+                    </div>
+                    <!-- Ubicación -->
+                    <div class="info-card">
+                        <h3><i class="fas fa-map-marker-alt"></i> Ubicación</h3>
+                        <p id="storeLocation">Ubicación de la tienda...</p>
+                    </div>
+                    <!-- WhatsApp -->
+                    <div class="info-card">
+                        <h3><i class="fab fa-whatsapp"></i> Contacto</h3>
+                        <p id="storeWhatsApp">Número de contacto...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Galería de prendas -->
+            <div class="clothes-gallery">
+                <h2>Prendas destacadas</h2>
+                <div class="clothes-grid" id="clothesGrid">
+                    <!-- Las imágenes de prendas se generarán con JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal para ver imágenes -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <img class="modal-img" id="modalImage" src="" alt="Imagen ampliada">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-tshirt"></i>
+            </div>
+            <p>Descubre las últimas tendencias de moda en nuestra ciudad. Todos los derechos reservados &copy; <span id="currentYear">2026</span></p>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+});
+
+        // Datos de las tiendas de ropa con número de WhatsApp
+        const stores = [
+            {
+                id: 1,
+                name: "FashionPeluche",
+                image: "assets/IMG/Ropa/FashionPelucheBoutique.jpg",
+                description: "El lugar ideal para renovar tu clóset con las últimas tendencias en moda y accesorios. En Peluche Fashion Boutique seleccionamos las mejores prendas para que luzcas un estilo único, fresco y lleno de personalidad en cada ocasión. ¡Visítanos y encuentra tu 'look' perfecto!",
+                schedule: "Lunes a Sábado: 08:30 am - 12:00 pm<br> 2:00 pm - 5:30 pm",
+                location: "Calle Principal, en la Redoma, Frente a la panaderia Sugei",
+                whatsapp: "+58 4248210655",
+                gallery: ["assets/IMG/Ropa/FashionPelucheBoutique.jpg"],
+                clothes: [
+                    { image: "assets/IMG/Ropa/FashionPelucheBoutique-1.jpg", type: "Vestido de noche" },
+                    { image: "assets/IMG/Ropa/FashionPelucheBoutique-2.jpg", type: "Traje formal" },
+                    { image: "assets/IMG/Ropa/FashionPelucheBoutique-3.jpg", type: "Conjunto elegante" },
+                    { image: "assets/IMG/Ropa/FashionPelucheBoutique-4.jpg", type: "Vestido de fiesta" }
+                ]
+            },
+            {
+                id: 2,
+                name: "VariedadesLeon",
+                image: "assets/IMG/Ropa/VariedadesLeon.jpg",
+                description: "Tu opción ideal para armar el 'outfit' completo en un solo lugar. En Variedades León te ofrecemos una excelente selección de ropa a la moda, calzado cómodo y los accesorios perfectos para darle el toque final a tu estilo diario. ¡Ven y descubre todo lo que tenemos para ti!",
+                schedule: "Lunes a viernes: 09:00 am - 12:00 pm.<br> 3:00 pm - 6:00 pm",
+                location: "Calle Sucre, Sectores Unidos",
+                whatsapp: "+58 414-3808173",
+                gallery: ["assets/IMG/Ropa/VariedadesLeon.jpg"],
+                clothes: [
+                    { image: "assets/IMG/Ropa/VariedadesLeon-1.jpg", type: "Hoodie exclusivo" },
+                    { image: "assets/IMG/Ropa/VariedadesLeon-2.jpg", type: "Sneakers limitados" },
+                    { image: "assets/IMG/Ropa/VariedadesLeon-3.jpg", type: "Chaqueta urbana" },
+                    { image: "assets/IMG/Ropa/VariedadesLeon-4.jpg", type: "Pantalón cargo" }
+                ]
+            },
+            {
+                id: 3,
+                name: "RiverTrendy",
+                image: "assets/IMG/Ropa/RiverTrendy-1_logo.jpeg",
+                description: "Si buscas destacar con un estilo fresco, urbano y en tendencia, River Trendy es tu rincón. Nos apasiona ofrecerte prendas modernas y combinaciones audaces pensadas para quienes viven el día a día con actitud y dinamismo. Aquí encuentras esa pieza clave que elevará tu guardarropa y te hará captar todas las miradas. ¡Dale un giro vanguardista a tu imagen y atrévete a imponer tu propia moda!",
+                schedule: "Sábados a Domingo: 2:00 pm - 9:00 pm",
+                location: "Calle Principal, antes de llegar a El Dique",
+                whatsapp: "+58 4248415638",
+                gallery: ["assets/IMG/Ropa/RiverTrendy-1_logo.jpeg"],
+                clothes: [
+                    { image: "assets/IMG/Ropa/RiverTrendy-1.jpeg", type: "Jeans clásicos" },
+                    { image: "assets/IMG/Ropa/RiverTrendy-2.jpeg", type: "Camiseta básica" },
+                    { image: "assets/IMG/Ropa/RiverTrendy-3.jpeg", type: "Sudadera cómoda" },
+                    { image: "assets/IMG/Ropa/RiverTrendy-4.jpeg", type: "Vestido casual" }
+                ]
+            },
+            {
+                id: 4,
+                name: "Yahweh",
+                image: "assets/IMG/Ropa/Yahweh.jpg",
+                description: "La elegancia y la distinción se encuentran en Yahweh. Nos dedicamos a ofrecer piezas de vestir exclusivas y de alta calidad, ideales para quienes aprecian un diseño sofisticado, cortes impecables y un estilo atemporal. Ya sea para un compromiso importante o para lucir un aspecto pulcro y profesional en tu cotidianidad, aquí recibes una atención esmerada que te ayudará a proyectar tu mejor versión.",
+                schedule: "Lunes a Sábado: 8:00 am - 8:00 pm",
+                location: "Calle Principal.",
+                gallery: ["assets/IMG/Ropa/Yahweh.jpg"],
+                clothes: [
+                    { image: "assets/IMG/Ropa/Yahweh-1.jpg", type: "Zapatillas deportivas" },
+                    { image: "assets/IMG/Ropa/Yahweh-2.jpg", type: "Leggings deportivos" },
+                    { image: "assets/IMG/Ropa/Yahweh-3.jpg", type: "Top deportivo" },
+                    { image: "assets/IMG/Ropa/Yahweh-4.jpg", type: "Chaqueta deportiva" }
+                ]
+            },
+            {
+                id: 5,
+                name: "Mi guerrera boutique",
+                image: "assets/IMG/Ropa/MiGuerreraBoutique.jpg",
+                description: "Diseñada para la mujer actual, audaz y multifacética que no se detiene ante nada. En Mi Guerrera Boutique celebramos tu fuerza con ropa y complementos versátiles que se adaptan a tu ritmo de vida, permitiéndote pasar de la rutina diaria a una ocasión especial con total confianza. Encuentra prendas con carácter, colores vibrantes y diseños hechos para empoderarte y acompañar cada uno de tus logros.",
+                schedule: "Lunes a Sábado: 09:00 am - 6:00 pm",
+                location: "Calle Union de las 3C, antes de llegar a la Plazoleta",
+                whatsapp: "+58 4128064122",
+                gallery: ["assets/IMG/Ropa/MiGuerreraBoutique.jpg"],
+                clothes: [
+                    { image: "assets/IMG/Ropa/miguerreraboutique-2.jpg", type: "Vestido ecológico" },
+                    { image: "assets/IMG/Ropa/miguerreraboutique3.jpg", type: "Sudadera orgánica" },
+                    { image: "assets/IMG/Ropa/miguerreraboutique4.jpeg", type: "Camiseta sostenible" },
+                    { image: "assets/IMG/Ropa/miguerreraboutique5.jpeg", type: "Falda reciclada" }
+                ]
+            },
+            {
+                id: 6,
+                name: "Malina Boutique",
+                image: "assets/IMG/Ropa/MalinaBoutique.jpg",
+                description: "Siente el placer de vestir con feminidad, frescura y comodidad en Malina Boutique. Tu espacio idóneo para descubrir colecciones delicadas, texturas suaves y siluetas sutiles que realzan tu belleza natural sin esfuerzo. Desde atuendos relajados para una tarde casual hasta opciones encantadoras para salir de noche, seleccionamos cada prenda con mimo para que te sientas cómoda, segura y auténtica.",
+                schedule: "Lunes a Sábado: 10:30 am - 5:00 pm<br>Domingo: 10:00 pm - 1:00 pm",
+                location: "Calle Principal",
+                gallery: ["assets/IMG/Ropa/MalinaBoutique.jpg"],
+                clothes: [
+                    { image: "assets/IMG/Ropa/MalinaBoutique-2.jpg", type: "Collar artesanal" },
+                    { image: "assets/IMG/Ropa/MalinaBoutique-3.jpg", type: "Bolso de diseñador" },
+                    { image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80", type: "Anillos exclusivos" },
+                    { image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80", type: "Cinturón de cuero" }
+                ]
+            },
+            {
+                id: 7,
+                name: "Variedades Ariannis Gil",
+                image: "assets/IMG/Ropa/ariannys-.png",
+                description: "Tu aliada perfecta para resolver los detalles del día a día en un solo lugar. En Variedades Ariannis Gil te espera un catálogo diverso y siempre renovado que combina textiles cómodos, calzado práctico y una gran variedad de complementos útiles para toda la familia. Nos distinguimos por nuestra cordialidad, atención cercana y una excelente relación calidad-precio que cuida tu economía mientras renuevas tu cotidianidad.",
+                schedule: "Lunes a Sábado: 07:00 am - 8:00 pm<br>Domingo: 08:00 pm - 12:00 pm",
+                location: "Sector Salina I, cerca de El Estadio",
+                whatsapp: "+58 4248413255",
+                gallery: ["assets/IMG/Ropa/ariannys-.png"],
+                clothes: [
+                    { image: "assets/IMG/Ropa/ariannys-1.jpeg", type: "Collar artesanal" },
+                    { image: "assets/IMG/Ropa/ariannys-2.jpeg", type: "Bolso de diseñador" },
+                    { image: "assets/IMG/Ropa/ariannys-3.jpeg", type: "Anillos exclusivos" },
+                    { image: "assets/IMG/Ropa/ariannys-4.jpeg", type: "Cinturón de cuero" }
+                ]
+            }
+        ];
+
+        // Variables globales
+        let currentStoreIndex = 0;
+
+        // Inicializar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            generateStoreCards();
+            setupEventListeners();
+        });
+
+        // Generar las tarjetas de tiendas
+        function generateStoreCards() {
+            const grid = document.getElementById('storesGrid');
+            grid.innerHTML = '';
+            
+            stores.forEach((store, index) => {
+                const card = document.createElement('div');
+                card.className = 'store-card';
+                card.dataset.id = store.id;
+                
+                card.innerHTML = `
+                    <img src="${store.image}" alt="${store.name}" class="store-img">
+                    <div class="store-name">${store.name}</div>
+                `;
+                
+                card.addEventListener('click', () => showStoreDetail(index));
+                grid.appendChild(card);
+            });
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            document.getElementById('backToList').addEventListener('click', showStoreList);
+            document.getElementById('closeModal').addEventListener('click', closeModal);
+            
+            document.getElementById('imageModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+
+            document.getElementById('coverImage').addEventListener('click', function() {
+                const store = stores[currentStoreIndex];
+                if (store && store.gallery && store.gallery.length > 0) {
+                    openModal(store.gallery, 0);
+                }
+            });
+        }
+
+        // Mostrar la vista detallada de la tienda
+        function showStoreDetail(index) {
+            currentStoreIndex = index;
+            const store = stores[index];
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            document.getElementById('storeList').style.display = 'none';
+            document.getElementById('storeDetail').style.display = 'block';
+            
+            // Actualizar información
+            document.getElementById('detailStoreName').textContent = store.name;
+            document.getElementById('storeDescription').textContent = store.description;
+            document.getElementById('storeSchedule').innerHTML = store.schedule;
+            document.getElementById('storeLocation').textContent = store.location;
+            document.getElementById('storeWhatsApp').textContent = store.whatsapp || 'No disponible';
+            
+            // Actualizar imagen de portada
+            const coverImage = document.getElementById('coverImage');
+            if (store.gallery && store.gallery.length > 0) {
+                coverImage.src = store.gallery[0];
+            } else {
+                coverImage.src = store.image;
+            }
+            
+            // Generar galería de prendas
+            generateClothesGallery(store.clothes);
+            
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 50);
+        }
+
+        // Mostrar la lista de tiendas
+        function showStoreList() {
+            document.getElementById('storeDetail').style.display = 'none';
+            document.getElementById('storeList').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Generar galería de prendas
+        function generateClothesGallery(clothes) {
+            const clothesGrid = document.getElementById('clothesGrid');
+            clothesGrid.innerHTML = '';
+            
+            clothes.forEach((item, index) => {
+                const clothesItem = document.createElement('div');
+                clothesItem.className = 'clothes-item';
+                clothesItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.type}" class="clothes-img">
+                `;
+                
+                clothesItem.addEventListener('click', () => {
+                    const images = clothes.map(c => c.image);
+                    openModal(images, index);
+                });
+                
+                clothesGrid.appendChild(clothesItem);
+            });
+        }
+
+        // Abrir modal con imagen
+        function openModal(images, index) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            
+            modalImage.src = images[index];
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Manejar tecla Escape para cerrar modal
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('imageModal');
+            if (modal.classList.contains('active') && e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Restaurantes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #FF6B35;
+            --secondary-color: #FFA500;
+            --accent-color: #FFD166;
+            --light-color: #FFF9EC;
+            --dark-color: #333333;
+            --text-color: #5A3921;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Estilos para el encabezado */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 i {
+            margin-right: 10px;
+        }
+
+        .back-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background-color: white;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .back-btn i {
+            margin-right: 8px;
+        }
+
+        /* Estilos para las tarjetas de restaurantes */
+        .restaurant-list {
+            padding: 40px 0;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .restaurant-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .restaurant-img {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 5px solid var(--accent-color);
+        }
+
+        .restaurant-name {
+            padding: 20px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Estilos para la vista detallada del restaurante */
+        .restaurant-detail {
+            display: none;
+            padding: 40px 0;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .back-to-list {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .back-to-list:hover {
+            background-color: var(--secondary-color);
+            transform: translateX(-5px);
+        }
+
+        .back-to-list i {
+            margin-right: 8px;
+        }
+
+        /* Galería automática */
+        .auto-gallery {
+            margin-bottom: 40px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .gallery-slide {
+            display: none;
+            position: relative;
+        }
+
+        .gallery-slide.active {
+            display: block;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            transform: translateY(-50%);
+        }
+
+        .gallery-btn {
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .gallery-btn:hover {
+            background-color: white;
+            transform: scale(1.1);
+        }
+
+        .gallery-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dot.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+
+        /* Información del restaurante */
+        .restaurant-info {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .restaurant-info h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .info-cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #FFF5E6, #FFE8CC);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-card h3 i {
+            margin-right: 10px;
+        }
+
+        /* Galería de platillos */
+        .dishes-gallery {
+            margin-top: 30px;
+        }
+
+        .dishes-gallery h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .dishes-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .dishes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .dish-item {
+            border-radius: 15px;
+            overflow: hidden;
+            height: 250px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .dish-item:hover {
+            transform: scale(1.05);
+        }
+
+        .dish-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Modal para ver imágenes */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .modal-img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 10px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            transform: translateY(-50%);
+        }
+
+        .modal-nav-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .modal-nav-btn:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        .footer-links a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <div class="container header-container">
+            <h1><i class="fas fa-utensils"></i> Sabores de la Ciudad</h1>
+            <a href="../index.html#comidas" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+        </div>
+    </header>
+
+    <!-- Lista de restaurantes (vista principal) -->
+    <section class="restaurant-list" id="restaurantList">
+        <div class="container">
+            <h2 style="margin-bottom: 30px; color: var(--primary-color); text-align: center;">Descubre los mejores restaurantes</h2>
+            
+            <div class="grid-container" id="restaurantsGrid">
+                <!-- Las tarjetas de restaurantes se generarán con JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Vista detallada del restaurante (oculta inicialmente) -->
+    <section class="restaurant-detail" id="restaurantDetail">
+        <div class="container">
+            <!-- Encabezado de la vista detallada -->
+            <div class="detail-header">
+                <h2 id="detailRestaurantName">Nombre del Restaurante</h2>
+                <button class="back-to-list" id="backToList">
+                    <i class="fas fa-arrow-left"></i> Volver al catálogo
+                </button>
+            </div>
+
+            <!-- Galería automática -->
+            <div class="auto-gallery" id="autoGallery">
+                <!-- Las imágenes se generarán con JavaScript -->
+                <div class="gallery-nav">
+                    <button class="gallery-btn" id="prevGalleryBtn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="gallery-btn" id="nextGalleryBtn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="gallery-dots" id="galleryDots">
+                    <!-- Los puntos se generarán con JavaScript -->
+                </div>
+            </div>
+
+            <!-- Información del restaurante -->
+            <div class="restaurant-info">
+                <h2>Acerca de nosotros</h2>
+                <p id="restaurantDescription">Descripción del restaurante...</p>
+                
+                <div class="info-cards">
+                    <div class="info-card">
+                        <h3><i class="fas fa-clock"></i> Horario de atención</h3>
+                        <p id="restaurantSchedule">Horario de trabajo...</p>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fas fa-map-marker-alt"></i> Ubicación</h3>
+                        <p id="restaurantLocation">Ubicación del restaurante...</p>
+                    </div>
+                    <div class="info-card">
+                        <h3><i class="fab fa-whatsapp"></i> Contacto</h3>
+                        <p id="restaurantWhatsApp">Número de contacto...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Galería de platillos -->
+            <div class="dishes-gallery">
+                <h2>Platillos especiales</h2>
+                <div class="dishes-grid" id="dishesGrid">
+                    <!-- Las imágenes de platillos se generarán con JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal para ver imágenes -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <img class="modal-img" id="modalImage" src="" alt="Imagen ampliada">
+            <div class="modal-nav">
+                <button class="modal-nav-btn" id="prevModalBtn"><i class="fas fa-chevron-left"></i></button>
+                <button class="modal-nav-btn" id="nextModalBtn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-utensils"></i>
+            </div>
+            <p>Descubre los sabores únicos de nuestro pueblo. Todos los derechos reservados &copy; <span id="currentYear">2025</span></p>
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const yearElement = document.getElementById('currentYear');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+});
+
+
+        // Datos de los restaurantes con número de WhatsApp
+        const restaurants = [
+            {
+                id: 1,
+                name: "0294",
+                image: "assets/IMG/Comidas/0294.jpg",
+                description: "Es un local de comida rápida que ofrece un espacio cómodo para que los clientes puedan disfrutar de sus comidas en el lugar. Cuenta con mesas y un ambiente agradable acompañado de música, lo que lo convierte en un sitio ideal para compartir y pasar un rato ameno en El Morro de Puerto Santo. En su menú se pueden encontrar perros calientes, jumbos, hamburguesas, salchipapas y shawarmas, además de bebidas energizantes y refrescos. ",
+                schedule: "Jueves a Domingo de 7:00 p.m. a 11:00 p.m.",
+                location: "Calle La Ceiba.",
+                whatsapp: "+58 4248811620",
+                gallery: [
+                    "assets/IMG/Comidas/0294.jpg",
+                    "assets/IMG/Comidas/0294-1.jpg",
+                    "assets/IMG/Comidas/0294-2.jpg"
+                ],
+                dishes: [
+                    "assets/IMG/Comidas/0294-3.jpg",
+                    "assets/IMG/Comidas/0294-4.jpg",
+                    "assets/IMG/Comidas/0294-5.jpg",
+                    "assets/IMG/Comidas/0294-6.jpg"
+                ]
+            },
+            {
+                id: 4,
+                name: "El Islote",
+                image: "assets/IMG/Comidas/islote_2.jpg",
+                description: "Disfruta del autentico sabor caribeño con los pies en la arena. En El Islote combinamos lo mejor de la cocina local con una ubicacion privilegiada a la orilla del mar. Desde crujientes empanadas y pescados frescos hasta platos perfectos para compartir en familia, es el punto ideal para relajasrse, comer divino y vivir el ambiente playero.    ",
+                schedule: "Viernes a domingo de 11:00 a.m. a 5:00 p.m.",
+                location: "El Islote",
+                whatsapp: "+58 416-5623786",
+                gallery: [
+                    "assets/IMG/Comidas/islote_2.jpg",
+                    "assets/IMG/Comidas/islote_1.jpg",
+                    
+                ],
+                dishes: [
+                    "assets/IMG/Comidas/islote-1.jpg",
+                    "assets/IMG/Comidas/islote-2.jpg",
+                    "assets/IMG/Comidas/islote-3.jpg",
+                    "assets/IMG/Comidas/islote-4.jpg"
+                ]
+            },
+            {
+                id: 5,
+                name: "Palacios Burger",
+                image: "assets/IMG/Comidas/palacioburguer-1.jpg",
+                description: "Es un carrito de comida rápida que ofrece una amplia variedad de opciones para quienes buscan disfrutar de una comida práctica y sabrosa en El Morro de Puerto Santo. En su menú se pueden encontrar perros calientes, hamburguesas, pollo asado, patacones, salchichas, papas mixtas, pepitos, arepas y sándwiches, brindando alternativas para distintos gustos. Este puesto se convierte en un lugar ideal para comer a cualquier hora del día, ya sea para el desayuno, el almuerzo o la cena.",
+                schedule: "Todos los dias de 6:00 p.m. a 12:00 p.m.",
+                location: "Calle Principal.",
+                whatsapp: "+58 424-8194700",
+                gallery: [
+                    "assets/IMG/Comidas/palacioburguer-1.jpg",
+                    "assets/IMG/Comidas/palacioburguer-2.jpg",
+                ],
+                dishes: [
+                    "assets/IMG/Comidas/palacioburguer-3.jpg",
+                    "assets/IMG/Comidas/palacioburguer-5.jpg",
+                    "assets/IMG/Comidas/palacioburguer-6.jpg",
+                    "assets/IMG/Comidas/palacioburguer-7.jpg"
+                ]
+            },
+            {
+                id: 6,
+                name: "La Esquina de Sabor",
+                image: "assets/IMG/Comidas/laesquinadelsabor-3.jpg",
+                description: "Es un popular carrito de comida rápida donde los visitantes pueden disfrutar de distintas opciones ideales para una comida rápida y sabrosa. En su menú destacan los perros calientes, además de jumbos, hamburguesas, pepitos, sándwiches y refrescos, ofreciendo variedad para todos los gustos. Convirtiéndose en un punto agradable para quienes desean compartir y disfrutar de algo delicioso durante la tarde y la noche en El Morro de Puerto Santo.",
+                schedule: "Jueves a domingo de 5:00 p.m. a 11:00 p.m",
+                location: "Calle Principal.",
+                whatsapp: "+58 426-6924839",
+                gallery: [
+                    "assets/IMG/Comidas/laesquinadelsabor-3.jpg",
+                    "assets/IMG/Comidas/laesquinadelsabor-4.jpg",
+                ],
+                dishes: [
+                    "assets/IMG/Comidas/laesquinadelsabor-1.jpg",
+                    "assets/IMG/Comidas/laesquinadelsabor-2.jpg",
+                    "assets/IMG/Comidas/laesquinadelsabor-5.jpg",
+                    "assets/IMG/Comidas/laesquinadelsabor-6.jpg"
+                ]
+            },
+            // Agregando más restaurantes para completar 14
+            {
+                id: 7,
+                name: "Mis 3 Princesas",
+                image: "assets/IMG/Comidas/mis3princesas-1.jpg",
+                description: "El rincón perfecto para los amantes del buen comer en El Morro de Puerto Santo. En Mis 3 Princesas te esperan hamburguesas con carne 100% de res. Disfruta también de nuestros deliciosos hot dogs y platillos especiales en un ambiente fresco, cómodo y techado. La parada ideal para un gusto irresistible.",
+                schedule: "Viernes a Domingo de 6:00 p.m. a 11:00 p.m.",
+                location: "Cerca de la plaza Bolivar",
+                whatsapp: "+58 4120839359",
+                gallery: [
+                    "assets/IMG/Comidas/mis3princesas-1.jpg",
+                    "assets/IMG/Comidas/mis3princesas-2.jpg",
+                    "assets/IMG/Comidas/mis3princesas-3.jpg"
+                ],
+                dishes: [
+                    "assets/IMG/Comidas/princesas-1.jpg",
+                    "assets/IMG/Comidas/princesas-2.jpg",
+                    "assets/IMG/Comidas/princesas-3.jpg",
+                    "assets/IMG/Comidas/princesas-4.jpg.jpeg"
+                ]
+            },
+            {
+                id: 8,
+                name: "Kayita",
+                image: "assets/IMG/Comidas/kayita-2.jpg",
+                description: "Si buscas frescura, originalidad y opciones para todos los gustos, H-liverburger es tu lugar. Nos apasiona ofrecer una propuesta única en El Morro de Puerto Santo que incluye desde hamburguesas creativas hasta platos variados con vegetales frescos, mariscos seleccionados y papas fritas. Ven a disfrutar de una comida diferente en nuestro cómodo espacio interior, ideal para romper la rutina culinaria.",
+                schedule: "Miercoles a Domingo: 5:00 p.m. - 11:00 p.m.<br>",
+                location: "Calle Principal.",
+                whatsapp: "+58 416-9828931",
+                gallery: [
+                    "assets/IMG/Comidas/kayita-2.jpg",
+                    "assets/IMG/Comidas/kayita-1.jpg",
+                    "assets/IMG/Comidas/kayita-3.jpg"
+                ],
+                dishes: [
+                    "assets/IMG/Comidas/kayita.1.jpg",
+                    "assets/IMG/Comidas/kayita.2.jpg",
+                    "assets/IMG/Comidas/kayita.3.jpg",
+                    "assets/IMG/Comidas/kayita.4.jpg"
+                ]
+            },
+            {
+                id: 9,
+                name: "Donde Flor",
+                image: "assets/IMG/Comidas/donde flor-1.jpg",
+                description: "Descubre el auténtico sabor casero y la variedad que estabas buscando en Donde Flor. Cada día te sorprendemos con un menú de la semana irresistible, donde destacan nuestras famosas cachapas con queso, crujientes pollos asados y parrilladas mixtas llenas de sabor. Disfruta de una comida espectacular en un espacio súper agradable y tradicional, perfecto para compartir en familia y sentirte como en casa.",
+                schedule: "Martes a Domingo: 5:00 a.m. a 1:00 p.m. / Sábado y Domingo: 12:00 p.m. a 5:00 p.m.",
+                location: "Calle Principal.",
+                whatsapp: "+58 412-2116031",
+                gallery: [
+                    "assets/IMG/Comidas/donde flor-1.jpg",
+                    "assets/IMG/Comidas/donde flor-2.jpg",
+                    "assets/IMG/Comidas/donde flor-3.jpg"
+                ],
+                dishes: [
+                    "assets/IMG/Comidas/flor-1.jpg",
+                    "assets/IMG/Comidas/flor-2.jpg",
+                    "assets/IMG/Comidas/flor-3.jpg",
+                    "assets/IMG/Comidas/flor-4.jpg"
+                ]
+            },
+            
+            
+        ];
+
+        // Variables globales
+        let currentRestaurantIndex = 0;
+        let currentGalleryIndex = 0;
+        let currentModalGallery = [];
+        let currentModalIndex = 0;
+
+        // Inicializar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Generar las tarjetas de restaurantes
+            generateRestaurantCards();
+            
+            // Configurar eventos
+            setupEventListeners();
+            
+            // Iniciar galería automática
+            startAutoGallery();
+        });
+
+        // Generar las tarjetas de restaurantes
+        function generateRestaurantCards() {
+            const grid = document.getElementById('restaurantsGrid');
+            
+            restaurants.forEach((restaurant, index) => {
+                const card = document.createElement('div');
+                card.className = 'restaurant-card';
+                card.dataset.id = restaurant.id;
+                
+                card.innerHTML = `
+                    <img src="${restaurant.image}" alt="${restaurant.name}" class="restaurant-img">
+                    <div class="restaurant-name">${restaurant.name}</div>
+                `;
+                
+                card.addEventListener('click', () => showRestaurantDetail(index));
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            // Botón para volver al catálogo
+            document.getElementById('backToList').addEventListener('click', showRestaurantList);
+            
+            // Botones de la galería automática
+            document.getElementById('prevGalleryBtn').addEventListener('click', prevGallerySlide);
+            document.getElementById('nextGalleryBtn').addEventListener('click', nextGallerySlide);
+            
+            // Botones del modal
+            document.getElementById('closeModal').addEventListener('click', closeModal);
+            document.getElementById('prevModalBtn').addEventListener('click', prevModalImage);
+            document.getElementById('nextModalBtn').addEventListener('click', nextModalImage);
+            
+            // Cerrar modal al hacer clic fuera de la imagen
+            document.getElementById('imageModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+        }
+
+        // Mostrar la vista detallada del restaurante
+        function showRestaurantDetail(index) {
+            // Guardar el índice del restaurante actual
+            currentRestaurantIndex = index;
+            const restaurant = restaurants[index];
+            
+            // Desplazar la página hacia arriba antes de cambiar la vista
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Ocultar lista y mostrar detalle
+            document.getElementById('restaurantList').style.display = 'none';
+            document.getElementById('restaurantDetail').style.display = 'block';
+            
+            // Actualizar información del restaurante
+            document.getElementById('detailRestaurantName').textContent = restaurant.name;
+            document.getElementById('restaurantDescription').textContent = restaurant.description;
+            document.getElementById('restaurantSchedule').innerHTML = restaurant.schedule;
+            document.getElementById('restaurantLocation').textContent = restaurant.location;
+            document.getElementById('restaurantWhatsApp').textContent = restaurant.whatsapp || 'No disponible';
+            
+            // Generar galería automática
+            generateAutoGallery(restaurant.gallery);
+            
+            // Generar galería de platillos
+            generateDishesGallery(restaurant.dishes);
+            
+            // Desplazar nuevamente hacia arriba para asegurar que estemos en la parte superior
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 50);
+        }
+
+        // Mostrar la lista de restaurantes
+        function showRestaurantList() {
+            // Ocultar detalle y mostrar lista
+            document.getElementById('restaurantDetail').style.display = 'none';
+            document.getElementById('restaurantList').style.display = 'block';
+            
+            // Desplazar hacia arriba
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Generar galería automática
+        function generateAutoGallery(images) {
+            const autoGallery = document.getElementById('autoGallery');
+            const dotsContainer = document.getElementById('galleryDots');
+            
+            // Limpiar galería actual (excepto los botones de navegación)
+            const existingSlides = autoGallery.querySelectorAll('.gallery-slide');
+            existingSlides.forEach(slide => slide.remove());
+            
+            dotsContainer.innerHTML = '';
+            
+            // Crear nuevos slides
+            images.forEach((image, index) => {
+                const slide = document.createElement('div');
+                slide.className = index === 0 ? 'gallery-slide active' : 'gallery-slide';
+                slide.innerHTML = `<img src="${image}" alt="Imagen del restaurante" class="gallery-img" data-gallery-index="${index}">`;
+                
+                // Agregar evento para abrir modal
+                slide.querySelector('.gallery-img').addEventListener('click', () => {
+                    openModal(images, index);
+                });
+                
+                // Insertar antes de los botones de navegación
+                autoGallery.insertBefore(slide, autoGallery.querySelector('.gallery-nav'));
+                
+                // Crear puntos de navegación
+                const dot = document.createElement('div');
+                dot.className = index === 0 ? 'dot active' : 'dot';
+                dot.dataset.index = index;
+                dot.addEventListener('click', () => changeGallerySlide(index));
+                dotsContainer.appendChild(dot);
+            });
+            
+            // Reiniciar índice
+            currentGalleryIndex = 0;
+        }
+
+        // Generar galería de platillos
+        function generateDishesGallery(images) {
+            const dishesGrid = document.getElementById('dishesGrid');
+            
+            // Limpiar galería actual
+            dishesGrid.innerHTML = '';
+            
+            // Crear nuevas imágenes
+            images.forEach((image, index) => {
+                const dishItem = document.createElement('div');
+                dishItem.className = 'dish-item';
+                dishItem.innerHTML = `<img src="${image}" alt="Platillo especial" class="dish-img" data-dish-index="${index}">`;
+                
+                // Agregar evento para abrir modal
+                dishItem.addEventListener('click', () => {
+                    openModal(images, index);
+                });
+                
+                dishesGrid.appendChild(dishItem);
+            });
+        }
+
+        // Cambiar slide de la galería automática
+        function changeGallerySlide(index) {
+            const slides = document.querySelectorAll('.gallery-slide');
+            const dots = document.querySelectorAll('.dot');
+            
+            // Remover clase activa de todos los slides y dots
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Agregar clase activa al slide y dot seleccionados
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            
+            // Actualizar índice actual
+            currentGalleryIndex = index;
+        }
+
+        // Slide anterior de la galería automática
+        function prevGallerySlide() {
+            const slides = document.querySelectorAll('.gallery-slide');
+            let newIndex = currentGalleryIndex - 1;
+            
+            if (newIndex < 0) {
+                newIndex = slides.length - 1;
+            }
+            
+            changeGallerySlide(newIndex);
+        }
+
+        // Siguiente slide de la galería automática
+        function nextGallerySlide() {
+            const slides = document.querySelectorAll('.gallery-slide');
+            let newIndex = currentGalleryIndex + 1;
+            
+            if (newIndex >= slides.length) {
+                newIndex = 0;
+            }
+            
+            changeGallerySlide(newIndex);
+        }
+
+        // Iniciar galería automática (cambia automáticamente cada 5 segundos)
+        function startAutoGallery() {
+            setInterval(() => {
+                if (document.getElementById('restaurantDetail').style.display === 'block') {
+                    nextGallerySlide();
+                }
+            }, 5000);
+        }
+
+        // Abrir modal con imagen
+        function openModal(images, index) {
+            currentModalGallery = images;
+            currentModalIndex = index;
+            
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            
+            modalImage.src = images[index];
+            modal.classList.add('active');
+            
+            // Prevenir scroll del body
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            
+            // Restaurar scroll del body
+            document.body.style.overflow = 'auto';
+        }
+
+        // Imagen anterior en el modal
+        function prevModalImage() {
+            currentModalIndex--;
+            
+            if (currentModalIndex < 0) {
+                currentModalIndex = currentModalGallery.length - 1;
+            }
+            
+            document.getElementById('modalImage').src = currentModalGallery[currentModalIndex];
+        }
+
+        // Siguiente imagen en el modal
+        function nextModalImage() {
+            currentModalIndex++;
+            
+            if (currentModalIndex >= currentModalGallery.length) {
+                currentModalIndex = 0;
+            }
+            
+            document.getElementById('modalImage').src = currentModalGallery[currentModalIndex];
+        }
+
+        // Manejar navegación con teclado
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('imageModal');
+            
+            if (modal.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                } else if (e.key === 'ArrowLeft') {
+                    prevModalImage();
+                } else if (e.key === 'ArrowRight') {
+                    nextModalImage();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
