@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salina 1 Parte Alta en El Morro de Puerto Santo</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+     <style>
+        
+.header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/img/sectores/IMG-20260319-WA0037.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Stronger fade effect */
+   
+}
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <!-- Background Image with Strong Fade -->
+        <div class="header-bg"></div>
+        
+        <!-- Header Content -->
+        <div class="header-content">
+            <!-- Back Button -->
+            <div class="back-button-container">
+                  <a href="sectoresDeElMorro.html?slide=7">
+                <button class="back-button">
+                    <svg class="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m12 19-7-7 7-7"/>
+                        <path d="m19 12H5"/>
+                    </svg>
+                    <span>Volver</span>
+                </button></a>
+            </div>
+
+            <!-- Title -->
+            <div class="title-container">
+                <h1 class="main-title">Salina 1 Parte Alta</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Main Text -->
+            <div class="main-text-section">
+                <p class="main-text">
+                    El sector Salina 1 Parte Alta constituye una extensión habitacional del núcleo 
+                    principal de Salina 1, desarrollándose como un área predominantemente residencial.
+                     Urbanísticamente, esta zona se caracteriza por un trazado vial interno de calles y
+                      callejones que se adaptan a la elevación del terreno, consolidando una trama urbana 
+                      más compacta y resguardada del flujo directo de la vía nacional. Por su ubicación 
+                      elevada, el sector ofrece una perspectiva geográfica distinta dentro de la parroquia, 
+                      funcionando como un área de densificación habitacional que mantiene una estrecha 
+                      dependencia funcional y social con la zona baja, pero con una identidad vecinal propia
+                       definida por su configuración vial interna.
+                </p>
+            </div>
+
+            <!-- Images Section -->
+            <div class="images-section">
+                <!-- Main Image -->
+                <div class="main-image-container">
+                    <img src="assets/img/sectores/IMG-20260319-WA0039.jpg"
+                         alt=""
+                         class="main-image clickable-image"
+                         data-caption="">
+                </div>
+                
+                <!-- Three Images Row - Separated -->
+                <div class="three-images-container">
+                    <div class="three-images-grid">
+                        <img src="assets/img/sectores/IMG-20260319-WA0040.jpg"
+                             alt=""
+                             class="grid-image clickable-image"
+                             data-caption="">
+                        <img src="assets/img/sectores/IMG-20260319-WA0035.jpg"
+                             alt=""
+                             class="grid-image clickable-image"
+                             data-caption="">
+                        <img src="assets/img/sectores/IMG-20260319-WA0036.jpg"
+                             alt=""
+                             class="grid-image clickable-image"
+                             data-caption="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Image Viewer Modal (Instagram-style) -->
+    <div class="image-viewer-overlay" id="imageViewer">
+        <div class="image-viewer-container">
+            <!-- Close Button -->
+            <button class="image-viewer-close" id="closeViewer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <!-- Image Container -->
+            <div class="image-viewer-content">
+                <img id="viewerImage" src="" alt="">
+                <div class="image-viewer-caption" id="viewerCaption"></div>
+            </div>
+            
+            <!-- Navigation Arrows -->
+            <button class="image-viewer-nav image-viewer-prev" id="prevImage">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15,18 9,12 15,6"></polyline>
+                </svg>
+            </button>
+            <button class="image-viewer-nav image-viewer-next" id="nextImage">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9,18 15,12 9,6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sectores Unidos en El Morro de Puerto Santo</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+     <style>
+        
+.header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/img/sectores/IMG-20260310-WA0064.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Stronger fade effect */
+   
+}
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <!-- Background Image with Strong Fade -->
+        <div class="header-bg"></div>
+        
+        <!-- Header Content -->
+        <div class="header-content">
+            <!-- Back Button -->
+            <div class="back-button-container">
+                <a href="sectoresDeElMorro.html?slide=4">
+                <button class="back-button">
+                    <svg class="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m12 19-7-7 7-7"/>
+                        <path d="m19 12H5"/>
+                    </svg>
+                    <span>Volver</span>
+                </button></a>
+            </div>
+
+            <!-- Title -->
+            <div class="title-container">
+                <h1 class="main-title">Sectores Unidos</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Main Text -->
+            <div class="main-text-section">
+                <p class="main-text">
+Este es un pequeño sector de la localidad que en años anteriores contaba con una bomba de combustible que servía a los habitantes y visitantes de la comunidad. Con el paso del tiempo, este espacio ha cambiado su dinámica dentro del pueblo.
+En la actualidad, Sectores Unidos se caracteriza por ser una calle tranquila, con poca afluencia de personas y vehículos. Su ambiente sereno lo convierte en un lugar apacible dentro de la localidad, reflejando la calma y el estilo de vida tradicional de la comunidad de El Morro de Puerto Santo. 
+
+                </p>
+            </div>
+
+            <!-- Images Section -->
+            <div class="images-section">
+                <!-- Main Image -->
+                <div class="main-image-container">
+                    <img src="assets/img/sectores/WhatsApp Image 2026-03-14 at 12.31.05 PM (1).jpeg"
+                         alt=""
+                         class="main-image clickable-image"
+                         data-caption="">
+                </div>
+                
+                <!-- Three Images Row - Separated -->
+                <div class="three-images-container">
+                    <div class="three-images-grid">
+                        <img src="assets/img/sectores/WhatsApp Image 2026-03-14 at 12.31.05 PM.jpeg"
+                             alt=""
+                             class="grid-image clickable-image"
+                             data-caption="">
+                        <img src="assets/img/sectores/WhatsApp Image 2026-03-14 at 12.31.06 PM (1).jpeg"
+                             alt=""
+                             class="grid-image clickable-image"
+                             data-caption="">
+                        <img src="assets/img/sectores/WhatsApp Image 2026-03-14 at 12.31.06 PM.jpeg"
+                             alt=""
+                             class="grid-image clickable-image"
+                             data-caption="">
+                    </div>
+                </div>
+            </div>
+        </div>          
+    </main>
+
+    <!-- Image Viewer Modal (Instagram-style) -->
+    <div class="image-viewer-overlay" id="imageViewer">
+        <div class="image-viewer-container">
+            <!-- Close Button -->
+            <button class="image-viewer-close" id="closeViewer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <!-- Image Container -->
+            <div class="image-viewer-content">
+                <img id="viewerImage" src="" alt="">
+                <div class="image-viewer-caption" id="viewerCaption"></div>
+            </div>
+            
+            <!-- Navigation Arrows -->
+            <button class="image-viewer-nav image-viewer-prev" id="prevImage">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15,18 9,12 15,6"></polyline>
+                </svg>
+            </button>
+            <button class="image-viewer-nav image-viewer-next" id="nextImage">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9,18 15,12 9,6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

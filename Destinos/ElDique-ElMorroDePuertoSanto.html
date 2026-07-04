@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Dique en El Morro de Puerto Santo</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        
+.header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/img/sectores/IMG-20260309-WA0063.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Stronger fade effect */
+   
+}
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <!-- Background Image with Strong Fade -->
+        <div class="header-bg"></div>
+        
+        <!-- Header Content -->
+        <div class="header-content">
+            <!-- Back Button -->
+            <div class="back-button-container">
+                <a href="sectoresDeElMorro.html?slide=3">
+                <button class="back-button">
+                    <svg class="back-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m12 19-7-7 7-7"/>
+                        <path d="m19 12H5"/>
+                    </svg>
+                    <span>Volver</span>
+                </button></a>
+            </div>
+
+            <!-- Title -->
+            <div class="title-container">
+                <h1 class="main-title">El Dique</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Main Text -->
+            <div class="main-text-section">
+                <p class="main-text">
+                  Este sector es uno de los más importantes dentro de la actividad pesquera de El Morro de Puerto Santo, siendo considerado un punto clave para el trabajo y la producción de la comunidad. Su cercanía con el mar y su infraestructura lo convierten en un espacio fundamental para el desarrollo de la pesca local.
+Durante la temporada de sardina, El Dique se llena de movimiento y actividad. Es común observar numerosas cavas y caravanas que llegan al sector para cargar y transportar el producto hacia distintas partes del país, reflejando la importancia económica de esta actividad para el pueblo.
+La constante presencia de pescadores, trabajadores y comerciantes hace de este sector un lugar lleno de dinamismo, donde se puede apreciar de cerca el esfuerzo y la tradición pesquera que caracteriza a la comunidad.
+
+                </p>
+            </div>
+
+            <!-- Images Section -->
+            <div class="images-section">
+                <!-- Main Image -->
+                <div class="main-image-container">
+                    <img src="assets/img/sectores/IMG-20260309-WA0066.jpg"
+                         alt=""
+                         class="main-image clickable-image"
+                         data-caption="">
+                </div>
+                
+                <!-- Three Images Row - Separated -->
+                <div class="three-images-container">
+                    <div class="three-images-grid">
+                        <img src="assets/img/sectores/IMG-20260309-WA0065.jpg"
+                             alt=""
+                             class="grid-image clickable-image"
+                             data-caption="">
+                        <img src="assets/img/sectores/IMG-20260309-WA0069.jpg"
+                             alt=""
+                             class="grid-image clickable-image"
+                             data-caption="">
+                        <img src="assets/img/sectores/IMG-20260309-WA0067.jpg"
+                             alt=""
+                             class="grid-image clickable-image"
+                             data-caption="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Image Viewer Modal (Instagram-style) -->
+    <div class="image-viewer-overlay" id="imageViewer">
+        <div class="image-viewer-container">
+            <!-- Close Button -->
+            <button class="image-viewer-close" id="closeViewer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <!-- Image Container -->
+            <div class="image-viewer-content">
+                <img id="viewerImage" src="" alt="">
+                <div class="image-viewer-caption" id="viewerCaption"></div>
+            </div>
+            
+            <!-- Navigation Arrows -->
+            <button class="image-viewer-nav image-viewer-prev" id="prevImage">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15,18 9,12 15,6"></polyline>
+                </svg>
+            </button>
+            <button class="image-viewer-nav image-viewer-next" id="nextImage">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9,18 15,12 9,6"></polyline>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Las Montañas de El Morro de Puerto Santo</title> 
+    <link rel="stylesheet" href="assets/css/main.css">    
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="../index.html">Inicio</a>
+            <a href="#" class="active">Montañas</a>
+        </nav>
+    </header>
+    
+    <div class="slider">
+        <div class="list"> 
+             <div class="item"  data-slide="0">
+                <img src="assets/img/colinaDeElDique.webp" alt="">
+                <div class="content">
+                    <div class="title" style=" font-size: 50px;">El Dique</div>
+                    <div class="type">Montaña</div>
+                    > <br><br> <br>
+                        <div class="button"> <a href="CerroElDique-ElMorroDePuertoSanto.html"> 
+                            <button>LEER MAS</button></a>
+                        </div>
+                </div>
+            </div>
+
+            <div class="item"  data-slide="1">
+                <img src="assets/img/lapica7.webp" alt="">
+                <div class="content">
+                    <div class="title" style=" font-size: 50px;">La Pica</div>
+                    <div class="type">Montaña</div>
+                     <br> <br> <br>
+                        <div class="button"> <a href="cerroLaPica-ElMorroDePuertoSanto.html"> 
+                            <button>LEER MAS</button></a>
+                        </div>
+                </div>
+            </div>
+
+            <div class="item"  data-slide="2">
+                <img src="assets/img/ElOlivito/ElOlivito_7.webp" alt="">
+                <div class="content">
+                    <div class="title" style=" font-size: 50px;">Los Olivito</div>
+                    <div class="type">Montaña</div>
+                     <br> <br><br>
+                        <div class="button"> <a href="CerroDelOlivito-ElMorroDePuertoSanto.html">
+                            <button>LEER MAS</button> </a>
+                        </div>
+                </div>
+            </div>
+
+            <div class="item"  data-slide="3">
+                <img src="assets/img/islote4.webp" alt="">
+                <div class="content">
+                    <div class="title" style=" font-size: 50px;">El Islote</div>
+                    <div class="type">Montaña</div>
+                     <br><br><br>
+                        <div class="button"><a href="cerroElIslote-ElMorroDePuertoSanto.html">
+                            <button>LEER MAS</button></a>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="thumbnail">
+            <div class="item" data-thumbnail="0">
+                <img src="assets/img/colinaDeElDique.webp" alt="">
+            </div>
+            <div class="item" data-thumbnail="1">
+                <img src="assets/img/lapica7.webp" alt="">
+            </div>
+            <div class="item" data-thumbnail="2">
+                <img src="assets/img/ElOlivito/ElOlivito_7.webp" alt="">
+            </div>
+            <div class="item" data-thumbnail="3">
+                <img src="assets/img/islote4.webp" alt="">
+            </div>
+        </div>
+        
+        <div class="nextPrevArrows">
+            <button class="prev"><</button>
+            <button class="next">></button>
+        </div>
+    </div>
+    
+    <script src="assets/js/app.js"></script>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    sessionStorage.setItem('destino_activo', 'montana');  // NOTA: sin acento
+    sessionStorage.setItem('timestamp', Date.now());
+    
+    const botonesInicio = document.querySelectorAll('a[href*="index.html"], a[href="/"], a[href*="index"], .btn-inicio');
+    botonesInicio.forEach(btn => {
+        btn.addEventListener('click', function() {
+            sessionStorage.setItem('destino_activo', 'montana');  // NOTA: sin acento
+            sessionStorage.setItem('timestamp', Date.now());
+        });
+    });
+});
+</script>
+    
+    
+</body>
+</html>

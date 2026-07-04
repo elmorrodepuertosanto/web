@@ -1,0 +1,1033 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: white;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #fbbf24, #f59e0b);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #f59e0b, #d97706);
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Header Section */
+.header {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Stronger fade effect */
+   
+}
+
+.header-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+}
+
+.header-content {
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Back Button - MAXIMUM Z-INDEX TO BE AT THE VERY FRONT */
+.back-button-container {
+    position: fixed;
+    top: 32px;
+    right: 32px;
+    z-index: 100; /* Maximum z-index to be at the very front */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+   
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    color: #374151;
+    padding: 12px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border: none;
+    pointer-events: auto; /* Re-enable clicks on the button itself */
+    position: relative;
+    z-index: 1;
+}
+
+.back-button:hover {
+    background: rgb(155, 30, 30);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.back-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.back-button:hover .back-icon {
+    transform: translateX(-4px);
+}
+
+/* Title */
+.title-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-title {
+    font-family: 'Brush Script MT', cursive;
+    font-size: clamp(3rem, 8vw, 8rem);
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Main Content */
+.main-content {
+    position: relative;
+    z-index: 20;
+    background: white;
+    margin-top: -80px;
+    padding-top: 80px;
+}
+
+/* Main Text Section */
+.main-text-section {
+    padding: 64px 0;
+}
+
+.main-text {
+    font-size: clamp(1.25rem, 2.5vw, 2rem);
+    color: #374151;
+    line-height: 1.7;
+    text-align: left;
+    font-weight: 300;
+    max-width: 1000px;
+}
+
+/* Images Section */
+.images-section {
+    margin-bottom: 120px;
+}
+
+.main-image-container {
+    position: relative;
+    margin-bottom: 80px;
+    margin-left: 32px;
+    max-width: 800px;
+}
+
+.main-image {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.main-image:hover {
+    transform: scale(1.02);
+}
+
+/* Clickable images styling */
+.clickable-image {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.clickable-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0);
+    border-radius: inherit;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.clickable-image:hover::before {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.clickable-image:hover {
+    transform: scale(1.02);
+}
+
+/* Three Images Container - Well Separated */
+.three-images-container {
+    margin-left: 32px;
+    max-width: 800px;
+}
+
+.three-images-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.grid-image {
+    width: 100%;
+    height: 128px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.grid-image:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.cards-section {
+    padding: 120px 0;
+    background: linear-gradient(135deg, #f9fafb 0%, white 100%);
+    margin-top: 80px;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Card Animation */
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card.animate {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-icon {
+    transform: scale(1.1);
+}
+
+.card-icon svg {
+    width: 32px;
+    height: 32px;
+    color: white;
+}
+
+.card-icon-1 {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+.card-icon-2 {
+    background: linear-gradient(135deg, #60a5fa, #8b5cf6);
+}
+
+.card-icon-3 {
+    background: linear-gradient(135deg, #34d399, #14b8a6);
+}
+
+.card-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #374151;
+    margin-bottom: 16px;
+}
+
+.card-text {
+    color: #6b7280;
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+/* Information Section */
+
+
+
+
+/* Card Icon Backgrounds 
+.card-icon-1 {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+.card-icon-2 {
+    background: linear-gradient(135deg, #60a5fa, #8b5cf6);
+}
+
+.card-icon-3 {
+    background: linear-gradient(135deg, #34d399, #14b8a6);
+}
+
+.card-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #374151;
+    margin-bottom: 16px;
+}
+
+.card-text {
+    color: #6b7280;
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+/* Information Section */
+.info-section {
+    padding: 120px 0;
+    background: white;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.info-title {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #374151;
+    margin-bottom: 24px;
+    line-height: 1.2;
+}
+
+.info-paragraph {
+    font-size: 1.125rem;
+    color: #6b7280;
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+.features-list {
+    margin-top: 32px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.feature-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.feature-dot-1 {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+.feature-dot-2 {
+    background: linear-gradient(135deg, #60a5fa, #8b5cf6);
+}
+
+.feature-dot-3 {
+    background: linear-gradient(135deg, #34d399, #14b8a6);
+}
+
+.feature-item span {
+    color: #374151;
+    font-weight: 500;
+}
+
+.info-image-container {
+    position: relative;
+}
+
+.info-image-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #fef3c7, #fed7aa);
+    border-radius: 16px;
+    transform: rotate(6deg);
+    z-index: 1;
+}
+
+.info-image {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+/* Image Viewer Modal (Instagram-style) */
+.image-viewer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 100000; /* High z-index but still below the back button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.image-viewer-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.image-viewer-container {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-viewer-content {
+    position: relative;
+    text-align: center;
+}
+
+.image-viewer-content img {
+    max-width: 80vw;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.image-viewer-caption {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+}
+
+.image-viewer-close {
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.image-viewer-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.image-viewer-close svg {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.image-viewer-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.image-viewer-nav:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.image-viewer-nav svg {
+    width: 28px;
+    height: 28px;
+    color: white;
+}
+
+.image-viewer-prev {
+    left: -100px;
+}
+
+.image-viewer-next {
+    right: -100px;
+}
+
+/* Hide navigation when there's only one image */
+.image-viewer-nav.hidden {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 20px;
+    }
+    
+    .main-text {
+        font-size: 1.5rem;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+    
+    .info-title {
+        font-size: 3rem;
+    }
+
+    .image-viewer-close {
+        top: -40px;
+        right: -40px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .image-viewer-close svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .image-viewer-nav {
+        width: 50px;
+        height: 50px;
+    }
+
+    .image-viewer-nav svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .image-viewer-prev {
+        left: -70px;
+    }
+
+    .image-viewer-next {
+        right: -70px;
+    }
+}
+
+@media (max-width: 768px) {
+    .back-button-container {
+        top: 20px;
+        right: 20px;
+    }
+    
+    .back-button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    
+    .main-text-section {
+        padding: 40px 0;
+    }
+    
+    .main-text {
+        font-size: 1.25rem;
+    }
+    
+    .main-image-container,
+    .three-images-container {
+        margin-left: 0;
+    }
+    
+    .main-image {
+        height: 240px;
+    }
+    
+    .grid-image {
+        height: 100px;
+    }
+    
+    .cards-section {
+        padding: 80px 0;
+        margin-top: 60px;
+    }
+    
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .card {
+        padding: 24px;
+    }
+    
+    .card-title {
+        font-size: 1.5rem;
+    }
+    
+    .info-section {
+        padding: 80px 0;
+    }
+    
+    .info-title {
+        font-size: 2.5rem;
+    }
+    
+    .info-paragraph {
+        font-size: 1rem;
+    }
+
+    .image-viewer-content img {
+        max-width: 95vw;
+        max-height: 70vh;
+    }
+
+    .image-viewer-close {
+        top: 20px;
+        right: 20px;
+        position: fixed;
+    }
+
+    .image-viewer-nav {
+        width: 45px;
+        height: 45px;
+        top: 50%;
+    }
+
+    .image-viewer-prev {
+        left: 20px;
+    }
+
+    .image-viewer-next {
+        right: 20px;
+    }
+
+    .image-viewer-caption {
+        bottom: 20px;
+        position: fixed;
+        left: 50%;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+    
+    .back-button {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+    
+    .main-text {
+        font-size: 1.125rem;
+    }
+    
+    .three-images-grid {
+        gap: 12px;
+    }
+    
+    .grid-image {
+        height: 80px;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+    
+    .card-icon {
+        width: 56px;
+        height: 56px;
+    }
+    
+    .card-icon svg {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .info-title {
+        font-size: 2rem;
+    }
+
+    .image-viewer-nav {
+        width: 40px;
+        height: 40px;
+    }
+
+    .image-viewer-nav svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* ============================================
+   CORRECCIÓN PARA PANTALLAS DE ESCRITORIO Y LAPTOP
+   ============================================ */
+
+/* Estilos base para pantallas grandes (992px - 1400px) */
+@media (min-width: 992px) and (max-width: 1400px) {
+    .container {
+        max-width: 1100px;
+        padding: 0 32px;
+    }
+
+    /* Centrar y mejorar el contenido principal */
+    .main-text-section {
+        padding: 64px 0;
+        text-align: center;
+    }
+
+    .main-text {
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 1.3rem;
+        line-height: 1.8;
+    }
+
+    /* Centrar contenedores de imágenes */
+    .main-image-container,
+    .three-images-container {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 900px;
+    }
+
+    .three-images-grid {
+        gap: 20px;
+    }
+
+    .grid-image {
+        height: 160px;
+    }
+
+    /* Ajustar información section */
+    .info-grid {
+        gap: 60px;
+        align-items: center;
+    }
+
+    .info-text {
+        padding-right: 20px;
+    }
+
+    .info-title {
+        font-size: 3rem;
+    }
+
+    .info-paragraph {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    .info-image {
+        height: 350px;
+    }
+}
+
+/* Pantallas de escritorio estándar (1400px en adelante) */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1300px;
+        padding: 0 40px;
+    }
+
+    /* Centrar y expandir contenido */
+    .main-text-section {
+        padding: 80px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .main-text {
+        max-width: 1100px;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 1.5rem;
+        line-height: 1.8;
+    }
+
+    /* Centrar contenedores de imágenes */
+    .main-image-container,
+    .three-images-container {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1000px;
+    }
+
+    .three-images-grid {
+        gap: 24px;
+    }
+
+    .grid-image {
+        height: 180px;
+    }
+
+    /* Ajustar información section */
+    .info-grid {
+        gap: 80px;
+    }
+
+    .info-title {
+        font-size: 3.5rem;
+    }
+
+    .info-paragraph {
+        font-size: 1.125rem;
+    }
+
+    .info-image {
+        height: 380px;
+    }
+
+    /* Cards mejor espaciadas */
+    .cards-grid {
+        gap: 40px;
+        padding: 0 20px;
+    }
+
+    .card {
+        padding: 40px;
+    }
+
+    .card-text {
+        font-size: 1rem;
+    }
+}
+
+/* Pantallas muy grandes (4K y ultra wide) */
+@media (min-width: 1920px) {
+    .container {
+        max-width: 1600px;
+        padding: 0 60px;
+    }
+
+    .main-text {
+        max-width: 1400px;
+        font-size: 1.8rem;
+    }
+
+    .main-image-container,
+    .three-images-container {
+        max-width: 1300px;
+    }
+
+    .grid-image {
+        height: 220px;
+    }
+
+    .info-image {
+        height: 450px;
+    }
+
+    .info-title {
+        font-size: 4rem;
+    }
+
+    .cards-grid {
+        gap: 50px;
+    }
+}
+
+/* Corrección específica para laptops de 13" y 14" (1366x768, 1280x800) */
+@media (min-width: 1200px) and (max-width: 1366px) {
+    .container {
+        max-width: 1000px;
+    }
+
+    .main-text {
+        max-width: 850px;
+        font-size: 1.2rem;
+    }
+
+    .three-images-container,
+    .main-image-container {
+        max-width: 850px;
+    }
+
+    .grid-image {
+        height: 130px;
+    }
+
+    .info-image {
+        height: 280px;
+    }
+
+    .info-title {
+        font-size: 2.5rem;
+    }
+}
+
+/* Ajuste para que las imágenes no se deformen */
+@media (min-width: 992px) {
+    /* Mantener proporción de imágenes */
+    .info-image,
+    .grid-image,
+    .main-image {
+        object-fit: cover;
+        width: 100%;
+    }
+
+    /* Mejorar espaciado vertical */
+    .main-content {
+        margin-top: -60px;
+        padding-top: 60px;
+    }
+
+    /* Asegurar que los contenedores de imágenes no se desborden */
+    .info-image-container {
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .info-image-bg {
+        transform: rotate(4deg);
+    }
+
+    /* Texto de características alineado */
+    .features-list {
+        max-width: 90%;
+    }
+
+    .feature-item span {
+        font-size: 0.95rem;
+    }
+}
+
+/* Opcional: Si quieres que todo el contenido esté mejor centrado */
+@media (min-width: 1200px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header,
+    .main-content {
+        width: 100%;
+    }
+
+    /* Centrar el contenido de las secciones internas */
+    .cards-section .container,
+    .info-section .container {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
