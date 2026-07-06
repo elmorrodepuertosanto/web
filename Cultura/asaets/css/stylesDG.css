@@ -1,0 +1,714 @@
+ :root {
+    --primary-color: #2c8c99;
+    --primary-dark: #1a6570;
+    --primary-light: #5bb4c4;
+    --secondary-color: #ff7e30;
+    --accent-color: #ff5252;
+    --dark-color: #2d3748;
+    --light-color: #f8f9fa;
+    --gray-color: #718096;
+    --white: #ffffff;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.15);
+    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    --border-radius: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--dark-color);
+    background-color: #f0f7fa;
+    background-image: linear-gradient(135deg, #f0f7fa 0%, #e3f2fd 100%);
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 3.2rem;
+    color: var(--white);
+    text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    font-size: 2.4rem;
+    color: var(--white);
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    z-index: 10;
+    text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.6);
+    padding: 0.8rem 1.8rem;
+    background: linear-gradient(90deg, rgba(44, 140, 153, 0.9), rgba(255, 126, 48, 0.9));
+    border-radius: 12px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+header {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('asaets/img/Deportes/IMG-20260306-WA0055(copia).jpg') no-repeat center center/cover;
+    padding: 4rem 0 6rem;
+    color: var(--white);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-content {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    padding-top: 3rem;
+}
+
+.back-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+    color: var(--white);
+    border: none;
+    padding: 0.9rem 1.8rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+    text-decoration: none;
+    box-shadow: 0 6px 15px rgba(255, 126, 48, 0.4);
+    z-index: 100;
+}
+
+.back-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 126, 48, 0.6);
+}
+
+.header-content h1 {
+    margin-top: 1.5rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+.header-content p {
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+    color: rgba(255, 255, 255, 0.95);
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+/* Info Section */
+.info-section {
+    background-color: var(--white);
+    padding: 3.5rem 0;
+    margin-top: -3rem;
+    border-radius: 30px 30px 0 0;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.08);
+    position: relative;
+    z-index: 5;
+}
+
+.info-section p {
+    font-size: 1.15rem;
+    color: var(--gray-color);
+    max-width: 850px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.8;
+}
+
+/* Filter Section */
+.filter-section {
+    padding: 3rem 0 2rem;
+    background-color: var(--white);
+}
+
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.filter-btn {
+    background: linear-gradient(135deg, var(--light-color), #e6f0ff);
+    color: var(--dark-color);
+    border: none;
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.7s;
+}
+
+.filter-btn:hover:before {
+    left: 100%;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: var(--white);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(44, 140, 153, 0.3);
+}
+
+/* Sports/Food Sections Container */
+.sports-container, .food-container {
+    padding: 2rem 0 5rem;
+}
+
+.sport-section, .food-section {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    padding: 0 0 2.5rem;
+    margin-bottom: 4rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    opacity: 1;
+    transform: translateY(0);
+    overflow: hidden;
+    position: relative;
+}
+
+.sport-section:hover, .food-section:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-10px);
+}
+
+.sport-section.hidden, .food-section.hidden {
+    display: none;
+}
+
+.sport-header, .food-header {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+    margin-bottom: 3.5rem;
+}
+
+.sport-header-image, .food-header-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.sport-section:hover .sport-header-image,
+.food-section:hover .food-header-image {
+    transform: scale(1.05);
+}
+
+.sport-header:after, .food-header:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 1), transparent);
+}
+
+.sport-info, .food-info {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2.5rem;
+    padding: 0 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.food-info {
+    grid-template-columns: 1fr;
+}
+
+.sport-description, .food-description {
+    color: var(--gray-color);
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.season-card, .food-card {
+    background: linear-gradient(135deg, #f8f9fa, #e9f7fb);
+    border-radius: 12px;
+    padding: 1.8rem;
+    border-left: 6px solid var(--secondary-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+}
+
+.season-card:hover, .food-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.season-card h3, .food-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.season-card h3 i, .food-card h3 i {
+    color: var(--secondary-color);
+}
+
+.season-card p, .food-card p {
+    color: var(--dark-color);
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.season-card p i, .food-card p i {
+    color: var(--primary-color);
+    width: 20px;
+}
+
+/* Gallery */
+.gallery-section {
+    padding: 0 2.5rem;
+}
+
+.gallery-section h3 {
+    color: var(--dark-color);
+    margin-bottom: 1.8rem;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.gallery-section h3 i {
+    color: var(--secondary-color);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+@media (max-width: 992px) {
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .sport-info, .food-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .sport-header, .food-header {
+        height: 200px;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+        bottom: 1rem;
+        left: 1rem;
+        padding: 0.6rem 1.2rem;
+        max-width: 85%;
+    }
+    
+    .sport-info, .food-info, .gallery-section {
+        padding: 0 1.5rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    h2 {
+        font-size: 1.3rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 200px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.gallery-item:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+}
+
+.gallery-item:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover:after {
+    opacity: 1;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: var(--white);
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+    z-index: 3;
+}
+
+.gallery-item:hover .gallery-overlay {
+    transform: translateY(0);
+}
+
+.gallery-overlay i {
+    font-size: 1.2rem;
+}
+
+/* Lightbox Modal */
+.lightbox-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+    touch-action: manipulation;
+}
+
+.lightbox-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 95%;
+    max-height: 95%;
+    animation: zoomIn 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.lightbox-content img {
+    max-width: 100%;
+    max-height: 85vh;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    object-fit: contain;
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: var(--white);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: var(--transition);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    z-index: 10;
+    min-width: 50px;
+    min-height: 50px;
+}
+
+@media (max-width: 768px) {
+    .lightbox-nav {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .lightbox-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        position: fixed;
+        top: auto;
+        bottom: 20px;
+        transform: none;
+        background-color: rgba(255, 255, 255, 0.25);
+    }
+    
+    .lightbox-prev {
+        left: 20px;
+        right: auto;
+    }
+    
+    .lightbox-next {
+        right: 20px;
+        left: auto;
+    }
+}
+
+.lightbox-nav:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-50%) scale(1.1);
+}
+
+@media (max-width: 480px) {
+    .lightbox-nav:hover {
+        transform: scale(1.1);
+    }
+}
+
+.lightbox-prev {
+    left: 20px;
+}
+
+.lightbox-next {
+    right: 20px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: var(--white);
+    font-size: 2.2rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: var(--transition);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .lightbox-close {
+        top: 15px;
+        right: 15px;
+        font-size: 1.8rem;
+        width: 45px;
+        height: 45px;
+    }
+}
+
+.lightbox-close:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: rotate(90deg);
+}
+
+.lightbox-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: var(--white);
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    padding: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    margin: 0 auto;
+    max-width: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media (max-width: 480px) {
+    .lightbox-counter {
+        bottom: 80px;
+        font-size: 1rem;
+    }
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, var(--dark-color), #1a202c);
+    color: var(--white);
+    text-align: center;
+    padding: 3rem 0;
+    margin-top: 2rem;
+}
+
+.footer-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.2rem;
+    background: linear-gradient(90deg, var(--primary-light), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+}
+
+footer p {
+    margin-bottom: 0.8rem;
+    opacity: 0.9;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scroll animations */
+.sport-section, .food-section {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .header-content {
+        padding-top: 4rem;
+    }
+    
+    .back-button {
+        position: relative;
+        margin-bottom: 1.5rem;
+        display: inline-flex;
+        left: auto;
+        top: auto;
+    }
+    
+    .filter-container {
+        gap: 0.8rem;
+    }
+    
+    .filter-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .header-content p {
+        font-size: 1.1rem;
+    }
+    
+    .info-section p {
+        font-size: 1rem;
+    }
+    
+    .filter-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.95rem;
+    }
+}
+.lightbox-counter {
+    display: none;
+}
