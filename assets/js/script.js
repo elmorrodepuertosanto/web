@@ -25,8 +25,8 @@ const institutions = [
     name: "Insopesca",
     image: "assets/img/work/insopesca2.webp",
     description: "Como brazo ejecutor del Ministerio de Pesca y Acuicultura, el Instituto Socialista de la Pesca y Acuicultura (INSOPESCA) desempeña un rol crucial en la gestión de los recursos marinos del país. Fundado bajo la Ley de Pesca y Acuicultura de 2001 y consolidado con el decreto de 2008 —hito que priorizó la pesca artesanal sobre la industrial—, este organismo se encarga del ordenamiento pesquero y el control de registros para embarcaciones y pescadores. Su labor garantiza la seguridad alimentaria a través de estrictas inspecciones sanitarias y la vigilancia de las artes de pesca permitidas, promoviendo además la organización comunitaria mediante los CONPPAs. Con un horario administrativo de lunes a viernes, de 8:00 AM a 4:00 PM, sus inspectores despliegan un esfuerzo continuo en las costas para adaptar la supervisión a las faenas de desembarque, asegurando que el aprovechamiento de nuestros mares sea responsable, higiénico y legal.",
-    founded: "2001",
-    employees: "24", // Cambiamos de worker a employees
+    founded: "1993",
+    employees: "14", // Cambiamos de worker a employees
     location: "Vía Nacional, El Morro de Puerto Santo",
     category: "Instituto de Pesca",
     type: "pesca"
